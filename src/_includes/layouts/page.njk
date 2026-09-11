@@ -1,0 +1,14 @@
+---
+layout: base.njk
+---
+<div class="page">
+  {% if title and not hideTitle %}
+  <header class="page__header">
+    <h1 class="page__title">{{ title }}</h1>
+    {% if subtitle %}<p class="page__subtitle">{{ subtitle }}</p>{% endif %}
+  </header>
+  {% endif %}
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+</div>

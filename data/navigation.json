@@ -1,0 +1,18 @@
+{
+  "note": "The article sidebar is generated automatically from content front matter (category + order) via the 'nav' Eleventy collection. This file defines top-level navigation and the canonical section order used for validation and the roadmap.",
+  "primary": [
+    { "label": "Home", "url": "/" },
+    { "label": "Roadmap", "url": "/roadmap/" },
+    { "label": "Interview Practice", "url": "/interview/practice/" },
+    { "label": "Quizzes", "url": "/quiz/" },
+    { "label": "Bookmarks", "url": "/bookmarks/" }
+  ],
+  "groups": [
+    { "key": "foundations", "label": "Foundations", "categories": ["java", "selenium", "testng"] },
+    { "key": "engineering", "label": "Engineering", "categories": ["framework", "api", "sql", "devops"] },
+    { "key": "modern", "label": "Modern Automation", "categories": ["playwright"] },
+    { "key": "ai", "label": "AI Era", "categories": ["ai-testing", "ai-agents"] },
+    { "key": "realworld", "label": "Real World", "categories": ["real-world"] },
+    { "key": "interview", "label": "Interview", "categories": ["interview"] }
+  ]
+}

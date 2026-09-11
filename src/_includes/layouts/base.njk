@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system" data-base="{{ '/' | url }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if title %}{{ title }} · {% endif %}SDET Engineering Playbook</title>
+  <meta name="description" content="{{ description or 'A practical SDET engineering playbook covering Java, Selenium 4, test automation frameworks, API testing, SQL, CI/CD, Playwright, AI-powered testing, GenAI, and agentic QA.' }}" />
+  <link rel="icon" href="{{ '/favicon.svg' | url }}" type="image/svg+xml" />
+  <link rel="stylesheet" href="{{ '/css/main.css' | url }}" />
+  {# Set theme before paint to avoid a flash of the wrong theme. #}
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("sdet-theme") || "system";
+        var resolved = t;
+        if (t === "system") {
+          resolved = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", resolved);
+        document.documentElement.setAttribute("data-theme-pref", t);
+        if (localStorage.getItem("sdet-focus") === "on") {
+          document.documentElement.classList.add("focus-mode");
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  {% include "partials/header.njk" %}
+
+  <div class="layout">
+    {% include "partials/sidebar.njk" %}
+
+    <main id="main" class="main" tabindex="-1">
+      {{ content | safe }}
+    </main>
+
+    {% block aside %}{% endblock %}
+  </div>
+
+  {% include "partials/search-dialog.njk" %}
+
+  <script type="module" src="{{ '/js/app.js' | url }}"></script>
+</body>
+</html>

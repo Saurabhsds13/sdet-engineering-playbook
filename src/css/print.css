@@ -1,0 +1,25 @@
+/* Print / PDF-friendly styling. Used by the browser print dialog and the
+   PDF generation pipeline. */
+@media print {
+  .site-header, .sidebar, .toc, .sidebar-overlay, .search-dialog,
+  .article__meta, .article__pager, .bookmark-btn, .status-btn,
+  .code-block__copy { display: none !important; }
+
+  html, body { background: #fff; color: #000; font-size: 11pt; }
+
+  .layout { display: block; max-width: none; }
+  .main { padding: 0; }
+  .article, .page { max-width: none; }
+
+  .prose a { color: #000; text-decoration: underline; }
+
+  .prose h1, .prose h2, .prose h3 { page-break-after: avoid; }
+  .code-block, .callout, table, figure, blockquote { page-break-inside: avoid; }
+
+  .code-block { border: 1px solid #ccc; }
+  .code-block__pre { white-space: pre-wrap; word-break: break-word; }
+
+  .prose h2 { border-bottom: 1px solid #ccc; }
+
+  .page-break { page-break-before: always; }
+}

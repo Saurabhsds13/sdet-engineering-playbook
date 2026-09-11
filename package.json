@@ -1,0 +1,44 @@
+{
+  "name": "sdet-engineering-playbook",
+  "version": "0.1.0",
+  "description": "A practical SDET engineering playbook covering Java, Selenium 4, test automation frameworks, API testing, SQL, CI/CD, Playwright, AI-powered testing, GenAI, and agentic QA.",
+  "type": "module",
+  "license": "MIT",
+  "author": "",
+  "keywords": [
+    "sdet",
+    "selenium",
+    "test-automation",
+    "playwright",
+    "api-testing",
+    "ci-cd",
+    "ai-testing",
+    "agentic-qa",
+    "interview-preparation"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "clean": "node scripts/clean.js",
+    "prebuild": "npm run validate && npm run build:search",
+    "build": "eleventy",
+    "build:search": "node scripts/build-search-index.js",
+    "serve": "eleventy --serve",
+    "dev": "eleventy --serve",
+    "validate": "node scripts/validate-content.js",
+    "lint": "node scripts/validate-content.js --lint",
+    "pdf": "node scripts/generate-pdf.js",
+    "test": "node --test \"tests/*.test.js\""
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "markdown-it-attrs": "^4.3.1",
+    "prismjs": "^1.29.0"
+  },
+  "dependencies": {
+    "fuse.js": "^7.0.0"
+  }
+}

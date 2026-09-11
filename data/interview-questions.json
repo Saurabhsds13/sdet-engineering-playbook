@@ -1,0 +1,123 @@
+[
+  {
+    "id": "iv-sel-1",
+    "category": "selenium",
+    "difficulty": "beginner",
+    "question": "What is the difference between implicit and explicit waits?",
+    "short": "Implicit wait is a global polling timeout applied to element lookups; explicit wait (WebDriverWait) waits for a specific condition and is the preferred, targeted approach.",
+    "detailed": "An implicit wait tells WebDriver to poll the DOM for a set time whenever it cannot find an element. It applies to every findElement call. An explicit wait wraps a specific ExpectedCondition (e.g. elementToBeClickable) and only affects that call. Explicit waits are condition-aware, self-documenting, and return as soon as the condition is met. Mixing implicit and explicit waits causes unpredictable, compounding timeouts, so the recommendation is to set implicit wait to zero and use explicit waits.",
+    "whyAsked": "It quickly reveals whether a candidate understands synchronization, the root cause of most UI flakiness, rather than just memorizing API names.",
+    "followUp": "Why is mixing implicit and explicit waits an anti-pattern? What does FluentWait add?",
+    "example": "new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(By.id(\"pay\")));"
+  },
+  {
+    "id": "iv-sel-2",
+    "category": "selenium",
+    "difficulty": "intermediate",
+    "question": "How do you handle a StaleElementReferenceException?",
+    "short": "Re-locate the element after the DOM changes instead of caching the WebElement; wrap the interaction in a wait or retry that re-finds the element.",
+    "detailed": "A WebElement is a handle to a specific DOM node. When the page re-renders (SPA re-render, AJAX update), that node is replaced and the reference goes stale. The fix is to not hold references across DOM mutations: re-find the element right before use, or use an explicit wait like refreshed(elementToBeClickable(locator)). Page Object patterns that return fresh lookups (or PageFactory with lazy proxies) reduce this.",
+    "whyAsked": "Staleness is a common real-world failure and separates people who copy code from those who understand the DOM lifecycle.",
+    "followUp": "How does this interact with parallel execution and dynamic components?",
+    "example": "wait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(By.css(\".row\"))));"
+  },
+  {
+    "id": "iv-java-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Explain the difference between == and .equals() for Strings.",
+    "short": "== compares references (same object), .equals() compares character content.",
+    "detailed": "== checks whether two references point to the same object in memory. String literals are interned in the string pool, so two identical literals may be ==, but strings built at runtime usually are not. .equals() compares the actual character sequence, which is almost always what you want for value comparison. Use .equals() (or Objects.equals for null-safety) for content comparison.",
+    "whyAsked": "It's a classic that exposes understanding of references vs values and the string pool.",
+    "followUp": "What is the string pool? Why are Strings immutable?",
+    "example": "\"ab\" == \"ab\" // may be true (pool); new String(\"ab\") == \"ab\" // false; \"ab\".equals(new String(\"ab\")) // true"
+  },
+  {
+    "id": "iv-java-2",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "When would you choose a HashMap vs a TreeMap vs a LinkedHashMap?",
+    "short": "HashMap for O(1) unordered access, LinkedHashMap when insertion (or access) order matters, TreeMap when you need sorted keys or range queries.",
+    "detailed": "HashMap offers average O(1) get/put with no ordering. LinkedHashMap maintains insertion order (or access order for LRU caches) at a small memory cost. TreeMap keeps keys sorted by natural ordering or a Comparator with O(log n) operations and supports navigation methods like floorKey/ceilingKey. Choose based on ordering and complexity needs.",
+    "whyAsked": "Tests whether a candidate picks data structures deliberately rather than defaulting to HashMap everywhere.",
+    "followUp": "How would you build an LRU cache using LinkedHashMap?",
+    "example": "new LinkedHashMap<>(16, 0.75f, true) // access-order for LRU"
+  },
+  {
+    "id": "iv-fw-1",
+    "category": "framework",
+    "difficulty": "advanced",
+    "question": "How do you design a thread-safe framework for parallel execution?",
+    "short": "Give each thread its own WebDriver via ThreadLocal, avoid shared mutable state, isolate test data, and make configuration read-only after startup.",
+    "detailed": "Parallel tests run on separate threads. Store the driver in a ThreadLocal<WebDriver> so each thread has an isolated browser session, and clean it up in an @AfterMethod to avoid leaks. Avoid static mutable fields for state; pass context explicitly or use ThreadLocal. Ensure test data is unique per test (generate identifiers) so tests don't collide. Reporting and logging must be thread-aware. Configuration should be loaded once and treated as immutable.",
+    "whyAsked": "Parallelism is where fragile frameworks break; this reveals real architecture experience.",
+    "followUp": "How do you handle driver cleanup and prevent ThreadLocal memory leaks?",
+    "example": "private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<>();"
+  },
+  {
+    "id": "iv-api-1",
+    "category": "api",
+    "difficulty": "intermediate",
+    "question": "How do you validate an API response beyond the status code?",
+    "short": "Validate schema, key field values, headers, response time, and (where relevant) cross-check against the database or a downstream API.",
+    "detailed": "Status code is necessary but not sufficient. Validate the response body against a JSON schema to catch structural regressions, assert on business-critical field values, check headers (content-type, caching, auth), and enforce reasonable response-time bounds. For end-to-end confidence, chain requests (use output as input) and reconcile the API response with the database or UI state.",
+    "whyAsked": "Distinguishes shallow status-code checks from meaningful contract and data validation.",
+    "followUp": "What is contract testing and when would you use it over end-to-end tests?",
+    "example": "given().get(\"/users/1\").then().statusCode(200).body(matchesJsonSchemaInClasspath(\"user.json\"));"
+  },
+  {
+    "id": "iv-sql-1",
+    "category": "sql",
+    "difficulty": "beginner",
+    "question": "Write a query to find records in table A that have no matching row in table B.",
+    "short": "Use a LEFT JOIN and filter where the right-side key IS NULL.",
+    "detailed": "A LEFT JOIN keeps all rows from A and fills NULLs where B has no match. Filtering WHERE b.id IS NULL leaves only the unmatched A rows. This is a common data-integrity check in DB testing (e.g. orders without a customer).",
+    "whyAsked": "A staple SDET SQL question that tests join semantics and anti-join thinking.",
+    "followUp": "How would you do the same with NOT EXISTS, and which performs better?",
+    "example": "SELECT a.* FROM a LEFT JOIN b ON a.id = b.a_id WHERE b.a_id IS NULL;"
+  },
+  {
+    "id": "iv-scenario-flaky",
+    "category": "interview",
+    "difficulty": "advanced",
+    "question": "Your Selenium suite has 2,000 tests and 15% are flaky. How would you investigate and reduce the flakiness?",
+    "short": "Quantify and cluster failures first, fix the biggest root causes (usually synchronization and test data), quarantine the worst offenders, and add observability — don't blanket-retry.",
+    "detailed": "Start with data: capture failures over many runs, attach screenshots/DOM/logs, and cluster by exception and stack trace. Most flakiness clusters into a few causes: synchronization (fix waits), test data collisions (isolate/uniquify data), shared state and ordering, environment instability, and animations. Prioritize the largest clusters. Quarantine chronically flaky tests into a separate non-blocking suite so the main pipeline stays trustworthy, but track and burn down the quarantine. Add retries only as a temporary safety net with reporting so you can see what's being masked. Establish a flaky-rate metric and gate merges on it.",
+    "whyAsked": "It's an open-ended systems question that reveals engineering judgment, prioritization, and whether the candidate treats flakiness as an engineering problem rather than reaching for blind retries.",
+    "followUp": "How do you prevent retries from hiding real product bugs? How would you measure improvement over time?",
+    "example": "Cluster: 62% TimeoutException on dynamic tables -> replace implicit waits with explicit elementToBeClickable; flaky rate drops from 15% to 4%."
+  },
+  {
+    "id": "iv-ai-1",
+    "category": "ai-testing",
+    "difficulty": "intermediate",
+    "question": "How is testing an LLM-powered feature different from testing traditional software?",
+    "short": "Outputs are non-deterministic and open-ended, so you shift from exact-match assertions to evaluation: golden datasets, semantic similarity, groundedness, structured-output validation, and guardrail checks.",
+    "detailed": "Traditional tests assert exact outputs. LLM outputs vary across runs and phrasings, so equality assertions are brittle. Instead you build evaluation datasets with expected properties, score responses using semantic similarity or an LLM-as-judge with rubrics, validate structured output against schemas, and test for groundedness/faithfulness in RAG. You also test safety properties: prompt injection resistance, refusal of unsafe requests, no sensitive-data leakage. Track cost, latency, and drift over time rather than a single pass/fail.",
+    "whyAsked": "Signals whether a candidate understands the shift from deterministic assertions to probabilistic evaluation — a defining skill for AI-era QA.",
+    "followUp": "How do you make an LLM test suite stable enough to gate a CI pipeline?",
+    "example": "Assert JSON schema on structured output deterministically; evaluate free-text answers with a rubric-based judge and a similarity threshold."
+  },
+  {
+    "id": "iv-agents-1",
+    "category": "ai-agents",
+    "difficulty": "advanced",
+    "question": "How would you test an autonomous browser agent that completes tasks on a website?",
+    "short": "Evaluate the whole trajectory, not just the final result: define success criteria, sandbox the environment, enforce step/permission limits, and test failure and injection scenarios.",
+    "detailed": "A browser agent plans and takes actions, so you evaluate its trajectory: did it reach the goal, with acceptable steps, without forbidden actions? Run it in a sandboxed, resettable environment so runs are reproducible. Define machine-checkable success criteria (final DOM/DB state). Add guardrails and assert they hold: max steps to prevent infinite loops, permission boundaries on tools, and no destructive actions. Test adversarial cases: prompt injection from page content, ambiguous instructions, and recovery from errors. Because behavior is non-deterministic, run multiple trials and report success rate rather than a single pass/fail.",
+    "whyAsked": "Agentic systems are emerging and few engineers have tested them; this reveals depth on non-determinism, safety, and evaluation design.",
+    "followUp": "How do you stop prompt injection from page content? How do you make agent tests reproducible?",
+    "example": "Success = order confirmed in DB within <= 12 steps, no calls to the refund tool; measured over 20 trials -> 90% success."
+  },
+  {
+    "id": "iv-managerial-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "How do you decide what to automate and what to leave as manual testing?",
+    "short": "Automate stable, high-value, repetitive, deterministic paths; keep exploratory, rapidly-changing, or one-off checks manual. Weigh maintenance cost against risk reduction.",
+    "detailed": "Automation earns its keep on tests that run often, cover critical business flows, are stable enough not to churn constantly, and are deterministic. Prioritize the risk-weighted regression core and smoke paths. Leave brand-new, volatile UI, subjective UX, and rarely-run checks to exploratory/manual testing. Always factor maintenance: an automated test that breaks every sprint may cost more than it saves. Use the test pyramid — push logic to fast unit/API layers and keep UI automation lean.",
+    "whyAsked": "Tests judgment and cost-awareness rather than a reflex to automate everything.",
+    "followUp": "How does this change when the UI is under heavy active development?",
+    "example": "Automate login + checkout smoke on every deploy; leave a redesigned onboarding flow to exploratory testing until it stabilizes."
+  }
+]

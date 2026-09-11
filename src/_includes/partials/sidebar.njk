@@ -1,0 +1,33 @@
+<aside class="sidebar" data-sidebar aria-label="Playbook navigation">
+  <nav class="sidebar__nav">
+    <ul class="sidebar__top">
+      <li><a href="{{ '/' | url }}" class="sidebar__link{% if page.url == '/' %} is-active{% endif %}">Home</a></li>
+      <li><a href="{{ '/roadmap/' | url }}" class="sidebar__link{% if '/roadmap/' in page.url %} is-active{% endif %}">Roadmap</a></li>
+      <li><a href="{{ '/interview/practice/' | url }}" class="sidebar__link{% if '/interview/practice/' in page.url %} is-active{% endif %}">Interview Practice</a></li>
+      <li><a href="{{ '/quiz/' | url }}" class="sidebar__link{% if '/quiz/' in page.url %} is-active{% endif %}">Quizzes</a></li>
+      <li><a href="{{ '/bookmarks/' | url }}" class="sidebar__link{% if '/bookmarks/' in page.url %} is-active{% endif %}">Bookmarks</a></li>
+    </ul>
+
+    {% for group in collections.nav %}
+    <div class="sidebar__group">
+      <p class="sidebar__group-label">{{ group.label }}</p>
+      {% for cat in group.categories %}
+      <details class="sidebar__section" {% if page.url and (cat.articles | selectattr("url", "equalto", page.url) | list | length) %}open{% endif %}>
+        <summary class="sidebar__section-summary">{{ cat.label }}</summary>
+        <ul class="sidebar__list">
+          {% for art in cat.articles %}
+          <li>
+            <a href="{{ art.url | url }}" class="sidebar__article{% if page.url == art.url %} is-active{% endif %}" data-slug="{{ art.slug }}">
+              <span class="sidebar__status" data-progress-dot="{{ art.slug }}" aria-hidden="true"></span>
+              <span class="sidebar__article-title">{{ art.title }}</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </details>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </nav>
+</aside>
+<div class="sidebar-overlay" data-sidebar-overlay hidden></div>

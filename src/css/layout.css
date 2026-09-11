@@ -1,0 +1,92 @@
+/* Three-zone book layout: sidebar · reading column · on-page TOC */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(1.2) blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.site-header__inner {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+}
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.site-header__mark { color: var(--accent); }
+.site-header__title { font-size: 0.98rem; white-space: nowrap; }
+.site-header__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr) var(--toc-width);
+  align-items: start;
+  max-width: 96rem;
+  margin: 0 auto;
+}
+
+.sidebar {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  padding: var(--space-5) var(--space-3) var(--space-8);
+  border-right: 1px solid var(--border);
+}
+
+.main {
+  min-width: 0;
+  padding: var(--space-8) var(--space-6) var(--space-10);
+}
+
+.article, .page {
+  max-width: var(--reading-width);
+  margin: 0 auto;
+}
+
+.toc {
+  position: sticky;
+  top: var(--header-height);
+  max-height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  padding: var(--space-8) var(--space-4);
+  font-size: 0.85rem;
+}
+
+/* When an article has both aside slots, main should stay centered.
+   The article layout renders the TOC as a sibling of .main inside .layout
+   via the block, so we place it in the third column. */
+.main + .toc { grid-column: 3; }
+
+/* Focus mode — collapse the two rails, center the reading column. */
+.focus-mode .sidebar,
+.focus-mode .toc { display: none; }
+.focus-mode .layout { grid-template-columns: minmax(0, 1fr); max-width: 60rem; }
+.focus-mode .main { padding-top: var(--space-6); }
+
+/* Reading progress bar under the header */
+.reading-progress {
+  height: 2px;
+  background: transparent;
+}
+.reading-progress__bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 80ms linear;
+}

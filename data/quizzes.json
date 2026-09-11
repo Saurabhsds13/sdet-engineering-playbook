@@ -1,0 +1,163 @@
+[
+  {
+    "id": "sel-wait-1",
+    "category": "selenium",
+    "difficulty": "beginner",
+    "question": "Which wait is best when you need to pause until one specific condition is true?",
+    "options": ["Thread.sleep()", "Implicit wait", "Explicit wait", "Page load timeout"],
+    "answer": 2,
+    "explanation": "An explicit wait (WebDriverWait) polls until a defined ExpectedCondition is met, so it returns as soon as the condition is true and fails fast otherwise. Thread.sleep always burns the full duration, and implicit waits apply globally without condition awareness."
+  },
+  {
+    "id": "sel-stale-1",
+    "category": "selenium",
+    "difficulty": "intermediate",
+    "question": "A StaleElementReferenceException most commonly means:",
+    "options": [
+      "The locator syntax is invalid",
+      "The element reference points to a DOM node that was re-rendered or removed",
+      "The browser driver version is outdated",
+      "The element is behind another element"
+    ],
+    "answer": 1,
+    "explanation": "The WebElement is a handle to a specific DOM node. If the DOM re-renders (SPA update, AJAX refresh), the old reference becomes stale. Re-locate the element after the change instead of caching it."
+  },
+  {
+    "id": "sel-locator-1",
+    "category": "selenium",
+    "difficulty": "beginner",
+    "question": "Which locator strategy is generally the most brittle?",
+    "options": ["By.id", "By.cssSelector on a data-testid", "Absolute XPath", "By.name"],
+    "answer": 2,
+    "explanation": "Absolute XPath encodes the full path from the root, so any structural change to the page breaks it. Prefer stable attributes like id or a dedicated data-testid."
+  },
+  {
+    "id": "java-collections-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Which collection preserves insertion order AND rejects duplicates?",
+    "options": ["ArrayList", "HashSet", "LinkedHashSet", "TreeSet"],
+    "answer": 2,
+    "explanation": "LinkedHashSet is a Set (no duplicates) backed by a linked list that preserves insertion order. HashSet has no ordering guarantee; TreeSet orders by natural/comparator ordering, not insertion."
+  },
+  {
+    "id": "java-string-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "Why are Java Strings immutable?",
+    "options": [
+      "To make them slower",
+      "For security, thread-safety, and string-pool caching",
+      "Because the JVM cannot store mutable objects",
+      "To force use of StringBuilder"
+    ],
+    "answer": 1,
+    "explanation": "Immutability enables safe sharing across threads, safe use as map keys and in the string pool, and prevents tampering with values used in security-sensitive contexts like class loading."
+  },
+  {
+    "id": "testng-1",
+    "category": "testng",
+    "difficulty": "beginner",
+    "question": "Which TestNG feature runs the same test with multiple data sets?",
+    "options": ["@BeforeMethod", "@DataProvider", "groups attribute", "@Listeners"],
+    "answer": 1,
+    "explanation": "@DataProvider supplies an array of parameter sets to a @Test method, running it once per row — the idiomatic way to do data-driven testing in TestNG."
+  },
+  {
+    "id": "framework-1",
+    "category": "framework",
+    "difficulty": "intermediate",
+    "question": "Why store WebDriver in a ThreadLocal in a parallel framework?",
+    "options": [
+      "It makes tests run faster on a single thread",
+      "It gives each test thread its own isolated driver instance",
+      "It reduces the number of browser windows",
+      "It is required by TestNG"
+    ],
+    "answer": 1,
+    "explanation": "In parallel execution, multiple threads run tests simultaneously. A ThreadLocal<WebDriver> ensures each thread gets its own driver, preventing threads from stepping on each other's browser session."
+  },
+  {
+    "id": "api-1",
+    "category": "api",
+    "difficulty": "beginner",
+    "question": "Which HTTP status code indicates the request succeeded but created a new resource?",
+    "options": ["200 OK", "201 Created", "204 No Content", "400 Bad Request"],
+    "answer": 1,
+    "explanation": "201 Created signals a successful request that resulted in a new resource, typically returning its location. 200 is a generic success; 204 means success with no body."
+  },
+  {
+    "id": "sql-join-1",
+    "category": "sql",
+    "difficulty": "beginner",
+    "question": "A LEFT JOIN returns:",
+    "options": [
+      "Only matching rows from both tables",
+      "All rows from the left table plus matches from the right (NULLs when no match)",
+      "All rows from the right table",
+      "The Cartesian product of both tables"
+    ],
+    "answer": 1,
+    "explanation": "A LEFT (OUTER) JOIN keeps every row from the left table; columns from the right table are NULL where there is no match. This is how you find records that lack related rows."
+  },
+  {
+    "id": "devops-1",
+    "category": "devops",
+    "difficulty": "beginner",
+    "question": "Which Maven plugin runs unit tests during the build?",
+    "options": ["Failsafe", "Surefire", "Compiler", "Assembly"],
+    "answer": 1,
+    "explanation": "Surefire runs unit tests in the test phase. Failsafe is its sibling for integration tests, bound to integration-test/verify so failures don't stop the build prematurely."
+  },
+  {
+    "id": "playwright-1",
+    "category": "playwright",
+    "difficulty": "intermediate",
+    "question": "What is a key architectural difference between Playwright and Selenium?",
+    "options": [
+      "Playwright only supports Chrome",
+      "Playwright communicates via browser-specific protocols with built-in auto-waiting",
+      "Selenium does not use WebDriver",
+      "Playwright requires a Selenium Grid"
+    ],
+    "answer": 1,
+    "explanation": "Playwright drives browsers over their DevTools/native protocols and auto-waits for actionability before each action, reducing explicit synchronization code. Selenium 4 uses the W3C WebDriver protocol."
+  },
+  {
+    "id": "ai-halluc-1",
+    "category": "ai-testing",
+    "difficulty": "intermediate",
+    "question": "In LLM testing, a 'hallucination' is best described as:",
+    "options": [
+      "A network timeout",
+      "Confident output that is factually wrong or unsupported by the provided context",
+      "A slow response",
+      "A rejected prompt"
+    ],
+    "answer": 1,
+    "explanation": "A hallucination is fluent, confident text that isn't grounded in facts or the supplied context. Testing for it uses grounding checks, golden datasets, and citation/faithfulness metrics rather than exact-match assertions."
+  },
+  {
+    "id": "ai-rag-1",
+    "category": "ai-testing",
+    "difficulty": "advanced",
+    "question": "When evaluating a RAG system, which metric assesses whether the answer is supported by retrieved context?",
+    "options": ["Latency", "Faithfulness / groundedness", "Token count", "Temperature"],
+    "answer": 1,
+    "explanation": "Faithfulness (groundedness) measures whether claims in the answer are supported by the retrieved passages. It is distinct from answer relevance and from retrieval metrics like context precision/recall."
+  },
+  {
+    "id": "agents-1",
+    "category": "ai-agents",
+    "difficulty": "intermediate",
+    "question": "Which risk is unique to autonomous agents that call tools?",
+    "options": [
+      "Slow page loads",
+      "Tool misuse and unbounded action loops",
+      "CSS specificity conflicts",
+      "Flaky selectors"
+    ],
+    "answer": 1,
+    "explanation": "Agents plan and act by calling tools, so they can misuse tools, exceed intended permissions, or loop indefinitely. Testing agents requires guardrails, permission boundaries, step limits, and trajectory evaluation, not just output checks."
+  }
+]

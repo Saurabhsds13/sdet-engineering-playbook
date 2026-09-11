@@ -1,0 +1,47 @@
+---
+layout: base.njk
+title: SDET Engineering Playbook
+description: From Selenium Automation to AI-Enabled Quality Engineering — a practical engineering knowledge base and interview preparation platform.
+eleventyExcludeFromCollections: true
+---
+<div class="home">
+  <section class="home-hero">
+    <p class="home-hero__eyebrow">SDET Engineering Playbook</p>
+    <h1 class="home-hero__title">From Selenium Automation to AI-Enabled Quality Engineering</h1>
+    <p class="home-hero__tagline">A practical engineering knowledge base covering Java, Selenium 4, framework design, API and database testing, CI/CD, Playwright, and the AI era of quality engineering — built to read like a technical book.</p>
+    <div class="home-hero__cta">
+      <a class="btn btn--primary" href="{{ '/roadmap/' | url }}">Start the roadmap</a>
+      <a class="btn" href="{{ '/selenium/explicit-waits/' | url }}">Read a sample chapter</a>
+      <a class="btn" href="{{ '/interview/practice/' | url }}">Interview practice</a>
+    </div>
+  </section>
+
+  {# Continue reading — populated client-side from localStorage. #}
+  <section class="home-section" data-continue-section hidden>
+    <h2>Continue reading</h2>
+    <div data-continue-card></div>
+  </section>
+
+  <section class="home-section">
+    <h2>Your progress</h2>
+    <div class="stat-row">
+      <div class="meter"><span class="meter__fill" data-progress-fill></span></div>
+      <span class="stat-row__value" data-progress-value>0%</span>
+    </div>
+    <p class="home-hero__tagline" style="font-size:0.9rem;margin-top:var(--space-3)">Progress and bookmarks are stored locally in your browser. No account required.</p>
+  </section>
+
+  <section class="home-section">
+    <h2>Explore the playbook</h2>
+    <div class="card-grid">
+      {% for group in collections.nav %}
+        {% for cat in group.categories %}
+        <a class="card" href="{{ cat.articles[0].url | url }}">
+          <h3>{{ cat.label }}</h3>
+          <p>{{ cat.articles.length }} article{% if cat.articles.length != 1 %}s{% endif %} · {{ group.label }}</p>
+        </a>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </section>
+</div>

@@ -1,0 +1,20 @@
+---
+layout: page.njk
+title: Learning Roadmap
+subtitle: Ten phases from Java foundations to agentic quality engineering. Follow them in order, or jump to what you need.
+permalink: /roadmap/index.html
+eleventyExcludeFromCollections: true
+---
+<div class="roadmap">
+  {% for phase in roadmap.phases %}
+  <section class="phase" data-phase="{{ phase.phase }}">
+    <h3>{{ phase.title }}</h3>
+    <p>{{ phase.summary }}</p>
+    <div class="phase__links">
+      {% for link in phase.links %}
+      <a class="related-list-link" href="{{ link.url | url }}"><span class="tag">{{ link.title }}</span></a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</div>

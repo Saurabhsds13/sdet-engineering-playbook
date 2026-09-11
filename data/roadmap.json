@@ -1,0 +1,104 @@
+{
+  "phases": [
+    {
+      "phase": 1,
+      "title": "Java Foundations",
+      "summary": "Solid programming underpins everything. Master OOP, collections, streams, and exception handling before touching frameworks.",
+      "links": [
+        { "title": "OOP for SDET", "url": "/java/oop-for-sdet/" },
+        { "title": "Collections", "url": "/java/collections/" },
+        { "title": "Streams", "url": "/java/streams/" },
+        { "title": "Exception Handling", "url": "/java/exception-handling/" }
+      ]
+    },
+    {
+      "phase": 2,
+      "title": "Selenium Mastery",
+      "summary": "Locators, synchronization, and reliability. Understand not just how, but why tests fail.",
+      "links": [
+        { "title": "Locators", "url": "/selenium/locators/" },
+        { "title": "XPath", "url": "/selenium/xpath/" },
+        { "title": "Explicit Waits", "url": "/selenium/explicit-waits/" },
+        { "title": "Selenium Exceptions", "url": "/selenium/selenium-exceptions/" }
+      ]
+    },
+    {
+      "phase": 3,
+      "title": "TestNG + Framework Engineering",
+      "summary": "Turn scripts into a maintainable, parallel-safe framework with proper structure.",
+      "links": [
+        { "title": "TestNG Essentials", "url": "/testng/testng-essentials/" },
+        { "title": "Page Object Model", "url": "/framework/page-object-model/" },
+        { "title": "ThreadLocal WebDriver", "url": "/framework/threadlocal-webdriver/" },
+        { "title": "Framework Architecture", "url": "/framework/framework-architecture/" }
+      ]
+    },
+    {
+      "phase": 4,
+      "title": "API + SQL",
+      "summary": "Validate systems below the UI. Faster, more stable tests and full-stack verification.",
+      "links": [
+        { "title": "REST Fundamentals", "url": "/api/rest-fundamentals/" },
+        { "title": "Rest Assured", "url": "/api/rest-assured/" },
+        { "title": "SQL Joins", "url": "/sql/joins/" },
+        { "title": "Database Validation", "url": "/sql/database-validation/" }
+      ]
+    },
+    {
+      "phase": 5,
+      "title": "CI/CD + DevOps",
+      "summary": "Run tests continuously and reliably. Maven, Jenkins, Docker, and GitHub Actions.",
+      "links": [
+        { "title": "Maven for Automation", "url": "/devops/maven/" },
+        { "title": "GitHub Actions", "url": "/devops/github-actions/" }
+      ]
+    },
+    {
+      "phase": 6,
+      "title": "Playwright",
+      "summary": "A modern automation tool. Learn its model and when it beats — or doesn't beat — Selenium.",
+      "links": [
+        { "title": "Playwright Architecture", "url": "/playwright/playwright-architecture/" },
+        { "title": "Selenium vs Playwright", "url": "/playwright/selenium-vs-playwright/" }
+      ]
+    },
+    {
+      "phase": 7,
+      "title": "AI-Assisted Testing",
+      "summary": "Use AI as an accelerator for test generation, data, and failure analysis — with judgment.",
+      "links": [
+        { "title": "AI-Assisted Test Automation", "url": "/ai-testing/ai-assisted-test-automation/" }
+      ]
+    },
+    {
+      "phase": 8,
+      "title": "LLM Testing",
+      "summary": "Test software that USES AI: hallucinations, grounding, RAG evaluation, and safety.",
+      "links": [
+        { "title": "Testing LLM Applications", "url": "/ai-testing/testing-llm-applications/" },
+        { "title": "Hallucination Testing", "url": "/ai-testing/hallucination-testing/" },
+        { "title": "RAG Evaluation", "url": "/ai-testing/rag-evaluation/" },
+        { "title": "Prompt Injection", "url": "/ai-testing/prompt-injection/" }
+      ]
+    },
+    {
+      "phase": 9,
+      "title": "AI Agents / Agentic QA",
+      "summary": "Autonomous agents that plan and act. Understand the loop, the risks, and how to test them.",
+      "links": [
+        { "title": "AI Agent Fundamentals", "url": "/ai-agents/ai-agent-fundamentals/" },
+        { "title": "Browser Agents", "url": "/ai-agents/browser-agents/" },
+        { "title": "Testing Agentic Systems", "url": "/ai-agents/testing-agentic-systems/" }
+      ]
+    },
+    {
+      "phase": 10,
+      "title": "SDET Interview Preparation",
+      "summary": "Consolidate everything into interview-ready answers that demonstrate engineering thinking.",
+      "links": [
+        { "title": "Interview Practice", "url": "/interview/practice/" },
+        { "title": "Quizzes", "url": "/quiz/" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+/* Code blocks — chrome + Prism token theme (light and dark). */
+.code-block {
+  margin: var(--space-5) 0;
+  border: 1px solid var(--code-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--code-bg);
+}
+.code-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-1) var(--space-3);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--code-border);
+}
+.code-block__lang {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.code-block__copy {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  transition: background var(--transition), color var(--transition);
+}
+.code-block__copy:hover { background: var(--surface); color: var(--text); }
+.code-block__copy.is-copied { color: var(--callout-remember); }
+
+.code-block__pre {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  line-height: 1.7;
+  tab-size: 2;
+}
+.code-block__pre code { font-family: inherit; background: none; border: none; padding: 0; }
+
+/* Prism token colors — light */
+[data-theme="light"] {
+  --tok-comment: #6a737d;
+  --tok-keyword: #b5220f;
+  --tok-string: #0a7d43;
+  --tok-number: #b5730f;
+  --tok-function: #6f42c1;
+  --tok-class: #2a5d8f;
+  --tok-punct: #57606a;
+  --tok-operator: #57606a;
+}
+/* Prism token colors — dark */
+[data-theme="dark"] {
+  --tok-comment: #7d8590;
+  --tok-keyword: #ff7b72;
+  --tok-string: #7ee787;
+  --tok-number: #d3a24e;
+  --tok-function: #d2a8ff;
+  --tok-class: #79c0ff;
+  --tok-punct: #8b949e;
+  --tok-operator: #8b949e;
+}
+
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: var(--tok-comment); font-style: italic; }
+.token.punctuation { color: var(--tok-punct); }
+.token.property, .token.tag, .token.constant, .token.symbol, .token.deleted { color: var(--tok-keyword); }
+.token.boolean, .token.number { color: var(--tok-number); }
+.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: var(--tok-string); }
+.token.operator, .token.entity, .token.url { color: var(--tok-operator); }
+.token.atrule, .token.attr-value, .token.keyword { color: var(--tok-keyword); }
+.token.function, .token.class-name { color: var(--tok-function); }
+.token.class-name { color: var(--tok-class); }
+.token.regex, .token.important, .token.variable { color: var(--tok-number); }
+.token.important, .token.bold { font-weight: 700; }
+.token.italic { font-style: italic; }

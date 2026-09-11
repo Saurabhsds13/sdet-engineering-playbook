@@ -1,0 +1,70 @@
+---
+layout: base.njk
+---
+{% set headings = content | toc %}
+<article class="article" data-article data-slug="{{ slug }}" data-title="{{ title }}" data-category="{{ category }}" data-url="{{ page.url }}">
+  <header class="article__header">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ '/' | url }}">Home</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ category | categoryLabel }}</span>
+    </nav>
+    <h1 class="article__title">{{ title }}</h1>
+    <div class="article__meta">
+      {% if difficulty %}<span class="tag tag--{{ difficulty }}">{{ difficulty }}</span>{% endif %}
+      <span class="article__reading-time">{{ content | readingTime }} min read</span>
+      <button type="button" class="bookmark-btn" data-bookmark aria-pressed="false" aria-label="Bookmark this article">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        <span class="bookmark-btn__label">Bookmark</span>
+      </button>
+      <button type="button" class="status-btn" data-status-btn aria-label="Mark reading status">
+        <span class="status-btn__dot" aria-hidden="true"></span>
+        <span class="status-btn__label">Not started</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="prose" data-prose>
+    {{ content | safe }}
+  </div>
+
+  {% if related %}
+  <section class="article__related" aria-label="Related topics">
+    <h2>Related topics</h2>
+    <ul class="related-list">
+      {% for rel in related %}
+      <li><a href="{{ rel.url | url }}">{{ rel.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {%- set articles = collections.articles -%}
+  {%- set currentIndex = null -%}
+  {%- for art in articles -%}
+    {%- if art.url == page.url -%}{% set currentIndex = loop.index0 %}{%- endif -%}
+  {%- endfor -%}
+  <nav class="article__pager" aria-label="Article navigation">
+    {%- if currentIndex != null and currentIndex > 0 -%}
+      {%- set prev = articles[currentIndex - 1] -%}
+      <a class="pager-link pager-link--prev" href="{{ prev.url | url }}"><small>Previous</small><span>{{ prev.data.navTitle or prev.data.title }}</span></a>
+    {%- else -%}<span></span>{%- endif -%}
+    {%- if currentIndex != null and currentIndex < (articles.length - 1) -%}
+      {%- set next = articles[currentIndex + 1] -%}
+      <a class="pager-link pager-link--next" href="{{ next.url | url }}"><small>Next</small><span>{{ next.data.navTitle or next.data.title }}</span></a>
+    {%- else -%}<span></span>{%- endif -%}
+  </nav>
+</article>
+
+<aside class="toc" data-toc aria-label="On this page">
+  {% if headings.length %}
+  <p class="toc__title">On this page</p>
+  <nav>
+    <ul class="toc__list">
+      {% for h in headings %}
+      <li class="toc__item toc__item--h{{ h.level }}"><a href="#{{ h.id }}" data-toc-link="{{ h.id }}">{{ h.text }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+</aside>

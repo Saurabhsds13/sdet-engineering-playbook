@@ -1,0 +1,61 @@
+/* Entry stylesheet. Import order matters: tokens → reset → type → layout →
+   components → features → code → responsive → print. */
+@import "variables.css";
+@import "reset.css";
+@import "typography.css";
+@import "layout.css";
+@import "components.css";
+@import "features.css";
+@import "code.css";
+@import "responsive.css";
+@import "print.css";
+
+/* Home / landing (book cover, not a SaaS hero). */
+.home-hero {
+  max-width: var(--reading-width);
+  margin: 0 auto var(--space-8);
+  padding-top: var(--space-6);
+}
+.home-hero__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+.home-hero__title { font-size: 2.4rem; line-height: 1.1; letter-spacing: -0.02em; font-weight: 750; }
+.home-hero__tagline { font-size: 1.15rem; color: var(--text-muted); margin-top: var(--space-4); }
+.home-hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+
+.home-section { max-width: 60rem; margin: 0 auto var(--space-8); }
+.home-section > h2 { font-size: 1.4rem; margin-bottom: var(--space-4); }
+
+/* Dashboard continue-reading strip */
+.continue-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.continue-card__label { font-size: 0.78rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+.continue-card__title { font-size: 1.05rem; font-weight: 600; margin-top: 2px; }
+
+.stat-row { display: flex; align-items: center; gap: var(--space-4); }
+.stat-row .meter { flex: 1; }
+.stat-row__value { font-weight: 650; font-variant-numeric: tabular-nums; }
+
+.bookmark-list li, .recent-list li { margin-top: var(--space-2); }
+.list-link {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+}
+.list-link:hover { background: var(--surface-2); }
+.list-link small { color: var(--text-faint); }

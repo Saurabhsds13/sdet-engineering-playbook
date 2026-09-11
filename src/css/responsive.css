@@ -1,0 +1,45 @@
+/* Collapse the right TOC on medium screens. */
+@media (max-width: 1200px) {
+  .layout { grid-template-columns: var(--sidebar-width) minmax(0, 1fr); }
+  .toc { display: none; }
+}
+
+/* Tablet & mobile — sidebar becomes an off-canvas drawer. */
+@media (max-width: 900px) {
+  :root { --text-base: 17px; }
+
+  .layout { grid-template-columns: minmax(0, 1fr); }
+
+  .nav-toggle { display: inline-flex; }
+
+  .sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    z-index: 50;
+    width: min(20rem, 82vw);
+    height: calc(100vh - var(--header-height));
+    background: var(--bg);
+    transform: translateX(-100%);
+    transition: transform var(--transition);
+    box-shadow: var(--shadow);
+  }
+  [data-nav-open] .sidebar { transform: translateX(0); }
+
+  .main { padding: var(--space-6) var(--space-4) var(--space-8); }
+
+  .search-trigger__label, .search-trigger__kbd { display: none; }
+  .search-trigger { width: 2.25rem; padding: 0; justify-content: center; }
+
+  .site-header__title { font-size: 0.9rem; }
+}
+
+@media (max-width: 560px) {
+  .article__meta { gap: var(--space-2); }
+  .article__title, .page__title { font-size: 1.7rem; }
+  .site-header__title { display: none; }
+  .card-grid { grid-template-columns: 1fr; }
+  .quiz-card, .interview-card { padding: var(--space-4); }
+  .pager-link { max-width: 100%; }
+  .article__pager { flex-direction: column; }
+}

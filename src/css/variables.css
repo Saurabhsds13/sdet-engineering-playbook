@@ -1,0 +1,95 @@
+/* Design tokens. Colors are tuned for long-form reading in both themes. */
+:root {
+  /* Typography */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, "Cascadia Code",
+    Consolas, "Liberation Mono", Menlo, monospace;
+
+  --text-base: 18px;
+  --line-height: 1.75;
+  --reading-width: 46rem; /* ~736px reading column */
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+
+  /* Layout */
+  --sidebar-width: 17rem;
+  --toc-width: 15rem;
+  --header-height: 3.5rem;
+  --radius: 8px;
+  --radius-sm: 5px;
+
+  /* Timing */
+  --transition: 160ms ease;
+}
+
+/* Light theme (default) */
+[data-theme="light"] {
+  --bg: #fdfdfb;
+  --bg-subtle: #f4f4f0;
+  --surface: #ffffff;
+  --surface-2: #f7f7f4;
+  --border: #e4e3dd;
+  --border-strong: #d2d1c9;
+
+  --text: #1e1e1c;
+  --text-muted: #5c5c56;
+  --text-faint: #8a8a82;
+
+  --accent: #2a5d8f;
+  --accent-hover: #1f4a73;
+  --accent-soft: #e8f0f7;
+
+  --code-bg: #f6f8fa;
+  --code-border: #e4e3dd;
+  --kbd-bg: #eeeee9;
+
+  --shadow: 0 1px 3px rgba(30, 30, 28, 0.08), 0 4px 12px rgba(30, 30, 28, 0.05);
+
+  --callout-important: #2a5d8f;
+  --callout-warning: #b5730f;
+  --callout-remember: #4a7c59;
+  --callout-interview: #7a4a8f;
+  --callout-realworld: #386a8f;
+  --callout-ai: #8f5a2a;
+}
+
+/* Dark theme — soft charcoal, never pure black, restrained accents. */
+[data-theme="dark"] {
+  --bg: #1a1b1e;
+  --bg-subtle: #202226;
+  --surface: #212327;
+  --surface-2: #282a2f;
+  --border: #33363c;
+  --border-strong: #444851;
+
+  --text: #e6e6e3;
+  --text-muted: #a9aab0;
+  --text-faint: #7d7e85;
+
+  --accent: #6fa8dc;
+  --accent-hover: #8bb9e3;
+  --accent-soft: #223244;
+
+  --code-bg: #1e2024;
+  --code-border: #33363c;
+  --kbd-bg: #2a2c31;
+
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 6px 18px rgba(0, 0, 0, 0.3);
+
+  --callout-important: #6fa8dc;
+  --callout-warning: #d3a24e;
+  --callout-remember: #7bc08e;
+  --callout-interview: #b98fce;
+  --callout-realworld: #7cb0d6;
+  --callout-ai: #d39a63;
+}
