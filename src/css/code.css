@@ -5,16 +5,32 @@
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--code-bg);
+  box-shadow: var(--shadow-sm);
 }
 .code-block__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-1) var(--space-3);
+  padding: var(--space-2) var(--space-3);
   background: var(--surface-2);
   border-bottom: 1px solid var(--code-border);
 }
+/* macOS-style window dots for a friendlier code panel. */
+.code-block__lang::before {
+  content: "";
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.55rem;
+  border-radius: 50%;
+  background: var(--border-strong);
+  box-shadow: 0.85rem 0 0 var(--border-strong), 1.7rem 0 0 var(--border-strong);
+  vertical-align: middle;
+}
 .code-block__lang {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 2.5rem; /* room for the three window dots */
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.04em;
@@ -24,11 +40,13 @@
 .code-block__copy {
   font-size: 0.75rem;
   color: var(--text-muted);
-  padding: 0.2em 0.6em;
-  border-radius: 4px;
-  transition: background var(--transition), color var(--transition);
+  padding: 0.25em 0.7em;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: background var(--transition), color var(--transition),
+    border-color var(--transition);
 }
-.code-block__copy:hover { background: var(--surface); color: var(--text); }
+.code-block__copy:hover { background: var(--surface); color: var(--text); border-color: var(--border); }
 .code-block__copy.is-copied { color: var(--callout-remember); }
 
 .code-block__pre {

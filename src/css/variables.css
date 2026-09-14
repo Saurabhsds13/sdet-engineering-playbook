@@ -1,4 +1,5 @@
-/* Design tokens. Colors are tuned for long-form reading in both themes. */
+/* Design tokens. Colors are tuned for long-form reading in both themes.
+   Palette: indigo accent, warm-neutral light surfaces, deep slate dark mode. */
 :root {
   /* Typography */
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -6,6 +7,9 @@
   --font-serif: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, "Cascadia Code",
     Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* Inter has optical sizing + tabular figures; enable sensible features. */
+  --font-features: "cv02", "cv03", "cv04", "cv11";
 
   --text-base: 18px;
   --line-height: 1.75;
@@ -24,72 +28,86 @@
   /* Layout */
   --sidebar-width: 17rem;
   --toc-width: 15rem;
-  --header-height: 3.5rem;
-  --radius: 8px;
-  --radius-sm: 5px;
+  --header-height: 3.75rem;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 18px;
 
   /* Timing */
-  --transition: 160ms ease;
+  --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 120ms ease;
 }
 
-/* Light theme (default) */
+/* Light theme — warm neutral paper, indigo accent. */
 [data-theme="light"] {
-  --bg: #fdfdfb;
-  --bg-subtle: #f4f4f0;
+  --bg: #fbfbfd;
+  --bg-subtle: #f2f3f7;
   --surface: #ffffff;
-  --surface-2: #f7f7f4;
-  --border: #e4e3dd;
-  --border-strong: #d2d1c9;
+  --surface-2: #f5f6f9;
+  --surface-3: #eef0f5;
+  --border: #e6e8ee;
+  --border-strong: #d3d6e0;
 
-  --text: #1e1e1c;
-  --text-muted: #5c5c56;
-  --text-faint: #8a8a82;
+  --text: #16181d;
+  --text-muted: #565b66;
+  --text-faint: #868c99;
 
-  --accent: #2a5d8f;
-  --accent-hover: #1f4a73;
-  --accent-soft: #e8f0f7;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-soft: #eef0fe;
+  --accent-contrast: #ffffff;
 
-  --code-bg: #f6f8fa;
-  --code-border: #e4e3dd;
-  --kbd-bg: #eeeee9;
+  --code-bg: #f7f8fb;
+  --code-border: #e6e8ee;
+  --kbd-bg: #eceef3;
 
-  --shadow: 0 1px 3px rgba(30, 30, 28, 0.08), 0 4px 12px rgba(30, 30, 28, 0.05);
+  --shadow-sm: 0 1px 2px rgba(16, 18, 27, 0.06);
+  --shadow: 0 1px 2px rgba(16, 18, 27, 0.06), 0 6px 16px rgba(16, 18, 27, 0.06);
+  --shadow-lg: 0 4px 12px rgba(16, 18, 27, 0.08), 0 18px 40px rgba(16, 18, 27, 0.12);
 
-  --callout-important: #2a5d8f;
+  --header-bg: rgba(251, 251, 253, 0.72);
+
+  --callout-important: #4f46e5;
   --callout-warning: #b5730f;
-  --callout-remember: #4a7c59;
-  --callout-interview: #7a4a8f;
-  --callout-realworld: #386a8f;
-  --callout-ai: #8f5a2a;
+  --callout-remember: #2f8a5b;
+  --callout-interview: #8b5cf6;
+  --callout-realworld: #0e7490;
+  --callout-ai: #c2410c;
 }
 
-/* Dark theme — soft charcoal, never pure black, restrained accents. */
+/* Dark theme — deep slate, never pure black, soft indigo accent. */
 [data-theme="dark"] {
-  --bg: #1a1b1e;
-  --bg-subtle: #202226;
-  --surface: #212327;
-  --surface-2: #282a2f;
-  --border: #33363c;
-  --border-strong: #444851;
+  --bg: #0d1117;
+  --bg-subtle: #131924;
+  --surface: #151b26;
+  --surface-2: #1b2230;
+  --surface-3: #222b3b;
+  --border: #262f3f;
+  --border-strong: #3a4557;
 
-  --text: #e6e6e3;
-  --text-muted: #a9aab0;
-  --text-faint: #7d7e85;
+  --text: #e7eaf0;
+  --text-muted: #a5adbd;
+  --text-faint: #737d90;
 
-  --accent: #6fa8dc;
-  --accent-hover: #8bb9e3;
-  --accent-soft: #223244;
+  --accent: #818cf8;
+  --accent-hover: #a5b0fb;
+  --accent-soft: #1e2540;
+  --accent-contrast: #0d1117;
 
-  --code-bg: #1e2024;
-  --code-border: #33363c;
-  --kbd-bg: #2a2c31;
+  --code-bg: #10161f;
+  --code-border: #262f3f;
+  --kbd-bg: #222b3b;
 
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 6px 18px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 6px 18px rgba(0, 0, 0, 0.5), 0 24px 48px rgba(0, 0, 0, 0.45);
 
-  --callout-important: #6fa8dc;
+  --header-bg: rgba(13, 17, 23, 0.72);
+
+  --callout-important: #818cf8;
   --callout-warning: #d3a24e;
-  --callout-remember: #7bc08e;
-  --callout-interview: #b98fce;
-  --callout-realworld: #7cb0d6;
-  --callout-ai: #d39a63;
+  --callout-remember: #5fc98d;
+  --callout-interview: #b79cf7;
+  --callout-realworld: #4bb6cf;
+  --callout-ai: #f0894f;
 }

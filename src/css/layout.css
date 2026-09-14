@@ -4,8 +4,9 @@
   position: sticky;
   top: 0;
   z-index: 60;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: saturate(1.2) blur(8px);
+  background: var(--header-bg);
+  backdrop-filter: saturate(1.6) blur(14px);
+  -webkit-backdrop-filter: saturate(1.6) blur(14px);
   border-bottom: 1px solid var(--border);
 }
 .site-header__inner {
@@ -22,8 +23,18 @@
   font-weight: 650;
   letter-spacing: -0.01em;
 }
-.site-header__mark { color: var(--accent); }
-.site-header__title { font-size: 0.98rem; white-space: nowrap; }
+.site-header__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 7px;
+  background: linear-gradient(135deg, var(--accent), var(--callout-interview));
+  color: #fff;
+  font-size: 0.85rem;
+}
+.site-header__title { font-size: 0.98rem; white-space: nowrap; font-weight: 650; letter-spacing: -0.01em; }
 .site-header__actions {
   margin-left: auto;
   display: flex;

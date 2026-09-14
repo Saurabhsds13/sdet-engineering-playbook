@@ -85,6 +85,13 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     "node_modules/fuse.js/dist/fuse.min.mjs": "js/vendor/fuse.min.mjs"
   });
+  // Self-hosted Inter variable font (Latin subset only, keeps it lean).
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2":
+      "fonts/inter-latin-wght-normal.woff2",
+    "node_modules/@fontsource-variable/inter/files/inter-latin-wght-italic.woff2":
+      "fonts/inter-latin-wght-italic.woff2"
+  });
 
   eleventyConfig.addWatchTarget("src/css/");
   eleventyConfig.addWatchTarget("src/js/");

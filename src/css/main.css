@@ -1,5 +1,6 @@
 /* Entry stylesheet. Import order matters: tokens → reset → type → layout →
    components → features → code → responsive → print. */
+@import "fonts.css";
 @import "variables.css";
 @import "reset.css";
 @import "typography.css";
@@ -10,22 +11,52 @@
 @import "responsive.css";
 @import "print.css";
 
-/* Home / landing (book cover, not a SaaS hero). */
+/* Home / landing (editorial book cover, not a SaaS hero). */
 .home-hero {
-  max-width: var(--reading-width);
-  margin: 0 auto var(--space-8);
-  padding-top: var(--space-6);
+  position: relative;
+  max-width: 52rem;
+  margin: 0 auto var(--space-10);
+  padding: var(--space-8) 0 var(--space-6);
+}
+/* Subtle radial glow behind the hero — calm, not flashy. */
+.home-hero::before {
+  content: "";
+  position: absolute;
+  inset: -2rem -4rem auto;
+  height: 20rem;
+  z-index: -1;
+  background: radial-gradient(
+    60% 60% at 20% 0%,
+    color-mix(in srgb, var(--accent) 14%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
 }
 .home-hero__eyebrow {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: var(--space-3);
+  background: var(--accent-soft);
+  padding: 0.3em 0.8em;
+  border-radius: 100px;
+  margin-bottom: var(--space-4);
 }
-.home-hero__title { font-size: 2.4rem; line-height: 1.1; letter-spacing: -0.02em; font-weight: 750; }
-.home-hero__tagline { font-size: 1.15rem; color: var(--text-muted); margin-top: var(--space-4); }
+.home-hero__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  background: linear-gradient(180deg, var(--text), color-mix(in srgb, var(--text) 72%, var(--accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.home-hero__tagline { font-size: 1.15rem; color: var(--text-muted); margin-top: var(--space-4); max-width: 40rem; }
 .home-hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
 
 .home-section { max-width: 60rem; margin: 0 auto var(--space-8); }

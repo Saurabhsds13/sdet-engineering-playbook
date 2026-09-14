@@ -4,6 +4,8 @@ body {
   font-size: var(--text-base);
   color: var(--text);
   background: var(--bg);
+  font-feature-settings: var(--font-features);
+  letter-spacing: -0.003em;
 }
 
 .prose {

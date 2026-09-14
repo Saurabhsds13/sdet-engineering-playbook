@@ -34,9 +34,17 @@ eleventyExcludeFromCollections: true
   <section class="home-section">
     <h2>Explore the playbook</h2>
     <div class="card-grid">
+      {% set groupAccent = {
+        "foundations": "var(--callout-important)",
+        "engineering": "var(--callout-realworld)",
+        "modern": "var(--callout-remember)",
+        "ai": "var(--callout-ai)",
+        "realworld": "var(--callout-warning)",
+        "interview": "var(--callout-interview)"
+      } %}
       {% for group in collections.nav %}
         {% for cat in group.categories %}
-        <a class="card" href="{{ cat.articles[0].url | url }}">
+        <a class="card" href="{{ cat.articles[0].url | url }}" style="--card-accent: {{ groupAccent[group.key] or 'var(--accent)' }}">
           <h3>{{ cat.label }}</h3>
           <p>{{ cat.articles.length }} article{% if cat.articles.length != 1 %}s{% endif %} · {{ group.label }}</p>
         </a>

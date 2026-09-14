@@ -21,6 +21,20 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Smooth theme switching for surfaces, borders and text. */
+body,
+.site-header,
+.sidebar,
+.card,
+.callout,
+.code-block,
+.quiz-card,
+.interview-card,
+.continue-card {
+  transition: background-color var(--transition), border-color var(--transition),
+    color var(--transition);
+}
+
 img, picture, svg, video { display: block; max-width: 100%; }
 
 input, button, textarea, select { font: inherit; color: inherit; }
