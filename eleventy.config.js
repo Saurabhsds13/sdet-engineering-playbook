@@ -82,6 +82,12 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "public": "." });
+  // Expose the quiz and interview data at the site root for client-side fetch.
+  // data/ remains the single source of truth (also used as Eleventy global data).
+  eleventyConfig.addPassthroughCopy({ "data/quizzes.json": "quizzes.json" });
+  eleventyConfig.addPassthroughCopy({
+    "data/interview-questions.json": "interview-questions.json"
+  });
   eleventyConfig.addPassthroughCopy({
     "node_modules/fuse.js/dist/fuse.min.mjs": "js/vendor/fuse.min.mjs"
   });
