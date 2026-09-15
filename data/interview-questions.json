@@ -119,5 +119,49 @@
     "whyAsked": "Tests judgment and cost-awareness rather than a reflex to automate everything.",
     "followUp": "How does this change when the UI is under heavy active development?",
     "example": "Automate login + checkout smoke on every deploy; leave a redesigned onboarding flow to exploratory testing until it stabilizes."
+  },
+  {
+    "id": "iv-git-1",
+    "category": "devops",
+    "difficulty": "intermediate",
+    "question": "What's the difference between git merge and git rebase, and when would you avoid rebase?",
+    "short": "Merge preserves history with a merge commit; rebase replays commits for a linear history but rewrites hashes. Never rebase commits others have already pulled.",
+    "detailed": "Merge integrates branches and records a merge commit, keeping the true history — the safe default, especially on shared branches. Rebase moves your commits to sit on top of another branch, producing a clean linear history but rewriting commit hashes. Rebasing shared/pushed history rewrites what teammates already have, causing conflicts and lost work, so rebase only your own local, unpushed commits.",
+    "whyAsked": "Reveals whether a candidate understands history rewriting and safe collaboration, not just command syntax.",
+    "followUp": "How do you undo a commit that's already pushed? (revert vs reset)",
+    "example": "git revert <hash> to safely undo a pushed commit; git reset only on local unpushed work."
+  },
+  {
+    "id": "iv-docker-1",
+    "category": "devops",
+    "difficulty": "intermediate",
+    "question": "How does Docker help test automation, and what's a common gotcha with dockerized browsers?",
+    "short": "Docker gives reproducible, isolated, scalable, disposable browser environments in CI. The classic gotcha is Chrome crashing due to a tiny default /dev/shm — fix with --shm-size=2g.",
+    "detailed": "Containers pin browser and driver versions so runs are identical everywhere, isolate each run so state doesn't leak, and scale to many parallel browser nodes that you discard afterward — no manual installs on runners. The most common failure is Chrome crashing (SessionNotCreated) because the container's default shared memory (/dev/shm, 64MB) is too small; passing --shm-size=2g or mounting /dev/shm resolves it. Also order Dockerfile layers so dependencies resolve before copying source, for cache-friendly rebuilds.",
+    "whyAsked": "Tests real CI/containerization experience; the --shm-size detail is hard to know without hands-on use.",
+    "followUp": "How would you run a dockerized Selenium Grid with multiple parallel nodes?",
+    "example": "docker run -d -p 4444:4444 --shm-size=2g selenium/standalone-chrome:4, then point RemoteWebDriver at it."
+  },
+  {
+    "id": "iv-sql-fund-1",
+    "category": "sql",
+    "difficulty": "beginner",
+    "question": "Explain WHERE vs HAVING and COUNT(*) vs COUNT(column).",
+    "short": "WHERE filters rows before grouping; HAVING filters groups after aggregation. COUNT(*) counts all rows; COUNT(column) counts only non-NULL values.",
+    "detailed": "WHERE applies to individual rows before GROUP BY runs, so you cannot use an aggregate in it. HAVING applies to the aggregated groups afterward (e.g. HAVING COUNT(*) > 5). COUNT(*) counts every row regardless of NULLs, while COUNT(column) ignores rows where that column is NULL — a subtle difference that produces wrong data-test assertions if missed. Understanding the logical execution order (FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY) explains why.",
+    "whyAsked": "These are the two most common SQL traps for testers and reveal whether the candidate understands the query engine.",
+    "followUp": "Why can't you reference a SELECT alias in the WHERE clause but you can in ORDER BY?",
+    "example": "SELECT status, COUNT(*) FROM orders WHERE total > 0 GROUP BY status HAVING COUNT(*) > 5;"
+  },
+  {
+    "id": "iv-testng-listener-1",
+    "category": "testng",
+    "difficulty": "intermediate",
+    "question": "How do you implement screenshot-on-failure and controlled retries in TestNG?",
+    "short": "Use an ITestListener's onTestFailure for screenshots, and an IRetryAnalyzer (attached via IAnnotationTransformer) for retries — retrying only known-transient exceptions and reporting every retry.",
+    "detailed": "Screenshot/log capture is a cross-cutting concern, so it belongs in an ITestListener.onTestFailure rather than each test's catch block, ensuring consistent diagnostics. For retries, implement IRetryAnalyzer and attach it framework-wide with an IAnnotationTransformer so you don't annotate every @Test. Crucially, retry only known-transient exceptions (e.g. TimeoutException, StaleElementReferenceException), keep the count low (usually 1), never retry genuine assertion failures, and report every retry so flakiness stays visible instead of being silently masked.",
+    "whyAsked": "Distinguishes engineers who understand listeners and disciplined retry policy from those who bolt on blind retries that hide bugs.",
+    "followUp": "Why can retries be dangerous, and how do you prevent them from hiding product bugs?",
+    "example": "onTestFailure -> capture screenshot; RetryAnalyzer returns true only for TimeoutException, max once, and logs the retry."
   }
 ]

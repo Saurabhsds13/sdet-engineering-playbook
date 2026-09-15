@@ -159,5 +159,107 @@
     ],
     "answer": 1,
     "explanation": "Agents plan and act by calling tools, so they can misuse tools, exceed intended permissions, or loop indefinitely. Testing agents requires guardrails, permission boundaries, step limits, and trajectory evaluation, not just output checks."
+  },
+  {
+    "id": "git-1",
+    "category": "devops",
+    "difficulty": "intermediate",
+    "question": "You need to undo a commit that has already been pushed to a shared branch. What's the safe command?",
+    "options": ["git reset --hard", "git commit --amend", "git revert <hash>", "git rebase -i"],
+    "answer": 2,
+    "explanation": "git revert creates a new commit that undoes the target commit, preserving history — safe on shared branches. reset and amend rewrite history and break teammates who already pulled it."
+  },
+  {
+    "id": "git-2",
+    "category": "devops",
+    "difficulty": "beginner",
+    "question": "Which command recovers commits that seem lost after a bad reset?",
+    "options": ["git status", "git reflog", "git clean", "git diff"],
+    "answer": 1,
+    "explanation": "git reflog shows the history of where HEAD has pointed. The 'lost' commits are almost always still reachable via their hash — check out or reset to recover them."
+  },
+  {
+    "id": "docker-1",
+    "category": "devops",
+    "difficulty": "intermediate",
+    "question": "Dockerized Chrome randomly crashes with SessionNotCreated errors. What's the most likely fix?",
+    "options": [
+      "Increase the test timeout",
+      "Pass --shm-size=2g (Chrome's shared memory is too small)",
+      "Use a newer chromedriver",
+      "Disable headless mode"
+    ],
+    "answer": 1,
+    "explanation": "Chrome uses /dev/shm for rendering; the container default of 64MB is too small and causes crashes. Setting --shm-size=2g (or mounting /dev/shm) resolves it — the classic dockerized-Selenium gotcha."
+  },
+  {
+    "id": "docker-2",
+    "category": "devops",
+    "difficulty": "beginner",
+    "question": "Why copy pom.xml and resolve dependencies before copying source in a Dockerfile?",
+    "options": [
+      "It's required by Maven",
+      "To leverage Docker layer caching so dependencies aren't re-downloaded on every code change",
+      "To reduce the image's OS size",
+      "To avoid needing a network connection"
+    ],
+    "answer": 1,
+    "explanation": "Docker caches layers. Since dependencies change rarely, resolving them in an earlier layer means changing test code doesn't invalidate the dependency layer — dramatically faster rebuilds."
+  },
+  {
+    "id": "sql-fund-1",
+    "category": "sql",
+    "difficulty": "beginner",
+    "question": "What is the difference between COUNT(*) and COUNT(column)?",
+    "options": [
+      "They are identical",
+      "COUNT(*) counts all rows; COUNT(column) counts only non-NULL values in that column",
+      "COUNT(*) is slower and less accurate",
+      "COUNT(column) counts distinct values"
+    ],
+    "answer": 1,
+    "explanation": "COUNT(*) counts every row. COUNT(column) skips rows where the column is NULL. Confusing the two produces wrong assertions in data tests."
+  },
+  {
+    "id": "sql-fund-2",
+    "category": "sql",
+    "difficulty": "intermediate",
+    "question": "When do you use HAVING instead of WHERE?",
+    "options": [
+      "HAVING is faster than WHERE",
+      "WHERE filters rows before grouping; HAVING filters groups after aggregation",
+      "They are interchangeable",
+      "HAVING only works with ORDER BY"
+    ],
+    "answer": 1,
+    "explanation": "WHERE filters individual rows before GROUP BY. HAVING filters the aggregated groups afterward (e.g. HAVING COUNT(*) > 5). Using WHERE on an aggregate is an error."
+  },
+  {
+    "id": "testng-listener-1",
+    "category": "testng",
+    "difficulty": "intermediate",
+    "question": "Where should screenshot-on-failure logic live in a framework?",
+    "options": [
+      "In every test's catch block",
+      "In an ITestListener's onTestFailure callback",
+      "In the @DataProvider",
+      "In the page object"
+    ],
+    "answer": 1,
+    "explanation": "Screenshot capture is a cross-cutting concern. Putting it in an ITestListener's onTestFailure runs it consistently for every test without cluttering test code or page objects."
+  },
+  {
+    "id": "testng-retry-1",
+    "category": "testng",
+    "difficulty": "advanced",
+    "question": "What is the safest retry strategy for a flaky suite?",
+    "options": [
+      "Retry every failure 5 times",
+      "Retry only known-transient exceptions once, and report every retry",
+      "Never capture why a retry happened",
+      "Retry assertion failures automatically"
+    ],
+    "answer": 1,
+    "explanation": "Blind retries hide real bugs. Retry only known-transient exceptions (e.g. TimeoutException), keep the count low, never retry genuine assertion failures, and report retries so flakiness stays visible."
   }
 ]

@@ -28,6 +28,7 @@
       "summary": "Turn scripts into a maintainable, parallel-safe framework with proper structure.",
       "links": [
         { "title": "TestNG Essentials", "url": "/testng/testng-essentials/" },
+        { "title": "Listeners & Retry", "url": "/testng/listeners-and-retry/" },
         { "title": "Page Object Model", "url": "/framework/page-object-model/" },
         { "title": "ThreadLocal WebDriver", "url": "/framework/threadlocal-webdriver/" },
         { "title": "Framework Architecture", "url": "/framework/framework-architecture/" }
@@ -40,6 +41,7 @@
       "links": [
         { "title": "REST Fundamentals", "url": "/api/rest-fundamentals/" },
         { "title": "Rest Assured", "url": "/api/rest-assured/" },
+        { "title": "SQL Fundamentals", "url": "/sql/sql-fundamentals/" },
         { "title": "SQL Joins", "url": "/sql/joins/" },
         { "title": "Database Validation", "url": "/sql/database-validation/" }
       ]
@@ -49,7 +51,9 @@
       "title": "CI/CD + DevOps",
       "summary": "Run tests continuously and reliably. Maven, Jenkins, Docker, and GitHub Actions.",
       "links": [
+        { "title": "Git for SDETs", "url": "/devops/git/" },
         { "title": "Maven for Automation", "url": "/devops/maven/" },
+        { "title": "Docker", "url": "/devops/docker/" },
         { "title": "GitHub Actions", "url": "/devops/github-actions/" }
       ]
     },
