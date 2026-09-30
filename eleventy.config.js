@@ -88,6 +88,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     "data/interview-questions.json": "interview-questions.json"
   });
+  // Publish the resume PDF for the download link on the résumé page.
+  eleventyConfig.addPassthroughCopy({
+    "Chaitali_Bhagwat_SQE.pdf": "resume/Chaitali_Bhagwat_SQE.pdf"
+  });
   eleventyConfig.addPassthroughCopy({
     "node_modules/fuse.js/dist/fuse.min.mjs": "js/vendor/fuse.min.mjs"
   });
