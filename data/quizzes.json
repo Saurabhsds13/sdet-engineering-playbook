@@ -331,5 +331,61 @@
     ],
     "answer": 1,
     "explanation": "The DoD is the agreed standard a story must meet to be considered done. SDETs help enforce it by making passing automated tests part of the DoD."
+  },
+  {
+    "id": "proc-sev-pri-1",
+    "category": "career",
+    "difficulty": "beginner",
+    "question": "A company's name is misspelled on the home page. How is this best classified?",
+    "options": [
+      "High severity, high priority",
+      "Low severity, high priority",
+      "High severity, low priority",
+      "Low severity, low priority"
+    ],
+    "answer": 1,
+    "explanation": "Nothing is technically broken (low severity), but it's embarrassing and public, so it must be fixed urgently (high priority). Severity and priority are independent axes."
+  },
+  {
+    "id": "proc-sdlc-stlc-1",
+    "category": "career",
+    "difficulty": "beginner",
+    "question": "What is the relationship between SDLC and STLC?",
+    "options": [
+      "They are the same thing",
+      "STLC is the testing-specific life cycle that runs within the broader SDLC",
+      "SDLC only covers testing",
+      "STLC replaces SDLC"
+    ],
+    "answer": 1,
+    "explanation": "SDLC covers building the whole product; STLC is the testing subset (requirement analysis, planning, design, env setup, execution, closure) that runs in parallel within SDLC."
+  },
+  {
+    "id": "proc-verif-valid-1",
+    "category": "career",
+    "difficulty": "beginner",
+    "question": "Which statement describes verification (as opposed to validation)?",
+    "options": [
+      "Running the application to confirm it meets user needs",
+      "Static checking against the spec (reviews, walkthroughs) without executing code",
+      "Load testing the system",
+      "Deploying to production"
+    ],
+    "answer": 1,
+    "explanation": "Verification is static — reviews and inspections asking 'are we building it right?' without execution. Validation is dynamic — running the software to confirm 'are we building the right thing?'"
+  },
+  {
+    "id": "proc-smoke-sanity-1",
+    "category": "career",
+    "difficulty": "beginner",
+    "question": "How does smoke testing differ from sanity testing?",
+    "options": [
+      "They are identical",
+      "Smoke is a broad shallow check that a build is stable enough to test; sanity is a narrow deeper check of specific changed functionality",
+      "Sanity is always automated; smoke is always manual",
+      "Smoke runs only in production"
+    ],
+    "answer": 1,
+    "explanation": "Smoke = breadth on a fresh build (is it worth testing?). Sanity = focused depth on specific fixes or changes, often after deployment."
   }
 ]

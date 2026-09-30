@@ -757,5 +757,170 @@
     "whyAsked": "Tests judgment and cost-awareness, and leverages your combined manual+automation background.",
     "followUp": "Which checks did you move from UI to API level, and why?",
     "example": "Automate regression + API service checks; keep exploratory and volatile new UI manual."
+  },
+  {
+    "id": "iv-svc-sdlc-stlc-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "What is the difference between SDLC and STLC?",
+    "short": "SDLC is the whole software development life cycle (requirements to maintenance); STLC is the testing-specific life cycle that runs in parallel within it.",
+    "detailed": "SDLC covers building the entire product: requirements, design, development, testing, deployment, and maintenance. STLC is the subset focused only on testing activities — requirement analysis, test planning, test case design, environment setup, execution, and closure — and it runs alongside SDLC rather than replacing it. Each STLC phase has entry and exit criteria that gate progress.",
+    "whyAsked": "A near-guaranteed service-based theory question; easy marks if crisp.",
+    "followUp": "Name the STLC phases and one entry/exit criterion for execution.",
+    "example": "STLC phases: Requirement Analysis -> Test Planning -> Test Case Design -> Env Setup -> Execution -> Closure."
+  },
+  {
+    "id": "iv-svc-defect-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "Explain the defect (bug) life cycle.",
+    "short": "New -> Assigned -> Open -> Fixed -> Retest -> Closed, with Reopened if the fix fails, plus Rejected, Duplicate, Deferred, and Not a Bug outcomes.",
+    "detailed": "A tester logs a defect as New; a lead/dev takes it (Assigned) and works on it (Open); the developer marks it Fixed; the tester retests and either Closes it or Reopens it if it still fails. Other states: Rejected (not valid), Duplicate, Deferred (valid but postponed), and Not a Bug (works as designed). In tools like Azure DevOps or Jira this is the bug work-item workflow. A strong defect report has steps to reproduce, expected vs actual, environment, severity, priority, and evidence.",
+    "whyAsked": "Core process knowledge; interviewers check you can also write a good defect report.",
+    "followUp": "What makes a defect report good enough that a developer can act on it immediately?",
+    "example": "Reopened path: fix fails retest -> back to the developer with fresh evidence."
+  },
+  {
+    "id": "iv-svc-sev-pri-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "Severity vs priority — with an example of each mismatch.",
+    "short": "Severity = technical impact (set by tester); priority = business urgency (set by PO/lead). They're independent: a misspelled company logo is low severity but high priority; a crash on an obscure legacy screen is high severity but low priority.",
+    "detailed": "Severity measures how badly the defect affects the system; priority measures how soon it must be fixed. They're separate axes, which is why the mismatches matter: high severity + low priority (a serious crash on a rarely used screen can wait) and low severity + high priority (a cosmetic but embarrassing typo on the home page must be fixed now). Testers set severity from impact; product owners set priority from business need.",
+    "whyAsked": "Extremely common; the mismatch examples prove you truly understand the difference.",
+    "followUp": "Who typically sets severity, and who sets priority?",
+    "example": "Low severity/high priority: company name misspelled on the landing page."
+  },
+  {
+    "id": "iv-svc-plan-strategy-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "What's the difference between a test plan and a test strategy?",
+    "short": "A test strategy is the high-level, often org-wide approach (levels, tools, standards); a test plan is the project/release-specific document (scope, schedule, resources, entry/exit criteria) derived from it.",
+    "detailed": "The test strategy is relatively static and sets the overall approach across a program or organization — test levels, automation approach, tools, and standards. The test plan is specific to a project or release: it details scope, what's in and out, schedule, resources, environment needs, entry/exit criteria, risks, and deliverables. In practice you write a test plan per release that follows the broader strategy.",
+    "whyAsked": "Checks documentation and planning maturity expected in service delivery.",
+    "followUp": "What sections would you include in a test plan?",
+    "example": "Strategy: 'automate regression with Selenium+TestNG'; Plan: 'Release 4.2 scope, schedule, 2 testers, exit = no open criticals'."
+  },
+  {
+    "id": "iv-svc-verif-valid-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "Verification vs validation?",
+    "short": "Verification = 'are we building it right?' (static checks like reviews, no execution). Validation = 'are we building the right thing?' (dynamic checks — running the software).",
+    "detailed": "Verification is static: reviews, walkthroughs, and inspections of requirements, design, and code against the spec, without executing the software. Validation is dynamic: actually running the application through manual and automated tests to confirm it meets user needs. Both are needed — verification catches issues early and cheaply; validation confirms real behaviour.",
+    "whyAsked": "Classic QA theory pairing in service interviews.",
+    "followUp": "Give one verification activity and one validation activity from your project.",
+    "example": "Verification: requirement/design review. Validation: executing your Selenium/API test suite."
+  },
+  {
+    "id": "iv-svc-test-login-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "How would you test a login page?",
+    "short": "Cover functional (valid/invalid combos), boundary/validation, security (SQL injection, brute-force lockout, masked password), UI/UX, and non-functional (performance, cross-browser) — positive and negative.",
+    "detailed": "Structure your answer by category. Functional: valid login, invalid username, invalid password, empty fields, remember-me, logout. Validation/boundary: field length limits, special characters, leading/trailing spaces. Security: password masking, no credentials in URL, SQL injection attempts, account lockout after N failures, session timeout, HTTPS. UI/UX: tab order, error messages, responsive layout. Non-functional: response time, cross-browser, load. Covering positive and negative plus security signals a thorough tester.",
+    "whyAsked": "The most common 'how would you test X' scenario; reveals structured thinking and coverage instincts.",
+    "followUp": "Which of these would you automate vs keep manual, and which are security concerns?",
+    "example": "Negative + security: 5 failed attempts -> account locked; password field masked; no creds in URL."
+  },
+  {
+    "id": "iv-svc-test-api-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "How would you test a REST API (e.g. a service endpoint)?",
+    "short": "Validate status codes, schema, and key fields for positive and negative inputs; check headers, auth (401/403), boundary and invalid payloads, response time, and reconcile against the database where relevant.",
+    "detailed": "Go beyond the happy path: positive cases (valid request -> correct status and body), negative cases (missing/invalid fields -> 400, no auth -> 401, wrong role -> 403, not found -> 404), schema validation to catch contract breaks, header and content-type checks, boundary and large-payload handling, idempotency for GET/PUT/DELETE, response-time bounds, and cross-checking the response against the database or a downstream service for full-stack confidence. This maps directly to service verification with Rest Assured/HTTPClient.",
+    "whyAsked": "Directly relevant to API/service testing roles; shows depth beyond status codes.",
+    "followUp": "How do you validate a response beyond the status code?",
+    "example": "Assert 201 + schema on create; 401 without token; reconcile created record in the DB."
+  },
+  {
+    "id": "iv-svc-client-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "How do you handle coordination with clients, BAs, and vendor partners?",
+    "short": "Clarify requirements and acceptance criteria early, communicate test status and risks clearly and regularly, raise blockers promptly, and keep evidence-based, professional records of decisions and defects.",
+    "detailed": "In service delivery you often sit between clients, business analysts, and vendor teams. I clarify ambiguous requirements up front (raising testability gaps at refinement), agree acceptance criteria, and keep stakeholders informed with clear test status, coverage, and risk — not just pass/fail counts. For vendor integration I coordinate on interfaces, environments, and data, and validate dependent components in higher environments. When there's a defect or disagreement, I bring reproducible evidence rather than opinion, which keeps cross-team conversations professional and fast.",
+    "whyAsked": "Service-based roles are client-facing; communication and coordination are as important as technical skill.",
+    "followUp": "How do you communicate release risk to a non-technical stakeholder?",
+    "example": "Weekly status: coverage %, open defects by severity, integration risks with vendor X, go/no-go recommendation."
+  },
+  {
+    "id": "iv-svc-vendor-integration-1",
+    "category": "interview",
+    "difficulty": "advanced",
+    "question": "How do you approach integration testing across multiple vendors in higher environments?",
+    "short": "Agree interface contracts and test data, validate each service's API responses, test the dependent components together in the higher environment, isolate which side a failure is on, and run sanity after deployment.",
+    "detailed": "With multiple vendors, most risk is at the seams. I confirm the interface contracts (endpoints, payloads, auth) and shared test data, then validate each service independently (API responses) before testing them integrated in the higher environment. When something fails, I reconcile across layers (UI vs API vs DB, or service A vs service B) to pinpoint which side owns the defect, and coordinate with that vendor with evidence. After deployment I run sanity in production to confirm the integration is healthy. Contract testing helps catch breaks earlier and cheaper than full end-to-end.",
+    "whyAsked": "Maps to real enterprise/telecom delivery; shows systems thinking and cross-team ownership.",
+    "followUp": "How would contract testing reduce late integration surprises?",
+    "example": "Service A returns wrong field -> API-level check isolates it to A -> raise with vendor A with the failing response."
+  },
+  {
+    "id": "iv-svc-prod-sanity-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "What is sanity testing and how does it differ from smoke testing?",
+    "short": "Smoke testing is a broad, shallow check that a new build is stable enough to test; sanity testing is a narrow, deeper check that specific fixed/changed functionality works, often after deployment.",
+    "detailed": "Smoke testing verifies the critical paths of a fresh build at a high level — if it fails, the build is rejected before deeper testing. Sanity testing is narrower and focused: after a fix or a deployment, you check that the specific changed area (and closely related functions) works as expected. I ran sanity in production after deployments to confirm the release was healthy. Both are quick gatekeepers, but smoke = breadth on a new build, sanity = focused depth on changes.",
+    "whyAsked": "Frequently asked and frequently confused; the breadth-vs-depth framing nails it.",
+    "followUp": "When would you run smoke vs sanity in your release process?",
+    "example": "Post-deploy: sanity-check the deployed service's key flows in production to confirm health."
+  },
+  {
+    "id": "iv-prod-code-palindrome-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Coding: check whether a string is a palindrome.",
+    "short": "Compare characters from both ends moving inward with two pointers; equal all the way means palindrome. O(n) time, O(1) extra space.",
+    "detailed": "Use two pointers, one at the start and one at the end, comparing characters and moving inward until they meet. Return false on the first mismatch. Decide up front whether to ignore case and non-alphanumerics (clarify with the interviewer). Handle null/empty as edge cases. The two-pointer approach is O(n) time and O(1) space, better than reversing the string and comparing.",
+    "whyAsked": "A staple light-coding warm-up for both service and product rounds.",
+    "followUp": "How would you handle case-insensitivity and ignore spaces/punctuation?",
+    "example": "int i=0,j=s.length()-1; while(i<j){ if(s.charAt(i++)!=s.charAt(j--)) return false; } return true;"
+  },
+  {
+    "id": "iv-prod-code-anagram-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Coding: determine whether two strings are anagrams.",
+    "short": "Either sort both and compare, or count character frequencies in one pass and check they match. Frequency count is O(n); sorting is O(n log n).",
+    "detailed": "Two strings are anagrams if they contain the same characters with the same counts. Two approaches: (1) sort both strings and compare — simple, O(n log n); (2) build a frequency map (or int[26] for lowercase letters), increment for the first string and decrement for the second, then check all counts are zero — O(n) time. Check lengths first as a quick reject, and clarify case/whitespace handling.",
+    "whyAsked": "Tests HashMap/array counting and complexity awareness at a light level.",
+    "followUp": "Why is the frequency-count approach better than sorting for large strings?",
+    "example": "int[] c=new int[26]; for(char ch:a) c[ch-'a']++; for(char ch:b) c[ch-'a']--; check all zero."
+  },
+  {
+    "id": "iv-prod-code-secondmax-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Coding: find the second largest element in an array.",
+    "short": "Track the largest and second-largest in a single pass, updating both as you go — O(n) time, O(1) space, no sorting needed.",
+    "detailed": "Initialize max and secondMax to the smallest possible value. Iterate once: if the current element is greater than max, shift max into secondMax and update max; else if it's greater than secondMax (and not equal to max, if distinct values are required), update secondMax. Handle arrays with fewer than two distinct elements as an edge case. This one-pass approach beats sorting (O(n log n)) — interviewers look for the O(n) solution.",
+    "whyAsked": "Checks whether you reach for a single-pass solution instead of sorting.",
+    "followUp": "How does your answer change if duplicates of the maximum should be ignored?",
+    "example": "for(n : arr){ if(n>max){secondMax=max; max=n;} else if(n>secondMax && n<max) secondMax=n; }"
+  },
+  {
+    "id": "iv-prod-design-framework-1",
+    "category": "interview",
+    "difficulty": "advanced",
+    "question": "Design an automation framework from scratch — what would you include?",
+    "short": "Layered design: tests (intent+assertions), page/service objects, core (driver factory + ThreadLocal, waits, HTTP clients), and support (config, test data, logging, reporting); plus CI integration, parallel execution, and cross-cutting concerns via listeners.",
+    "detailed": "Start with layers and dependency direction (tests depend on pages, pages on core, core on support). Include: a DriverFactory reading config; a ThreadLocal driver for parallel isolation; explicit-wait utilities; page/component objects (assertions kept in tests); Rest Assured/HTTPClient for API layer; externalized config with env overrides; test-data management with unique data per test; logging and screenshot-on-failure via listeners; pluggable reporting; TestNG for grouping/parallel/data-driven; and CI integration (Maven + Jenkins/GitHub Actions) with smoke-on-commit and full regression. Mention SOLID and the scalability test: adding the 100th test shouldn't require touching the framework.",
+    "whyAsked": "A product/senior design question that reveals architectural depth and prioritization.",
+    "followUp": "How do you make it support parallel execution and multiple environments?",
+    "example": "tests -> page/service objects -> core (factory, ThreadLocal, waits, HTTP) -> support (config, data, reporting) + CI."
+  },
+  {
+    "id": "iv-prod-design-urlshortener-1",
+    "category": "interview",
+    "difficulty": "advanced",
+    "question": "How would you test a URL shortener (e.g. bit.ly)?",
+    "short": "Cover functional (shorten/redirect, uniqueness, custom aliases), validation (invalid/malicious URLs), non-functional (redirect latency, high load, collisions at scale), security, analytics, and edge cases like expiry and duplicate long URLs.",
+    "detailed": "Break it into dimensions. Functional: a long URL produces a short one; the short URL redirects (301/302) to the original; each short code is unique; custom aliases work and reject duplicates. Validation: reject malformed or malicious URLs, very long URLs, and non-HTTP schemes. Non-functional: redirect latency under load, behaviour at scale (no code collisions), and throughput. Security: no open-redirect abuse, rate limiting, safe handling of malicious targets. Data/analytics: click counts, expiry, and what happens for an unknown/expired code (404 vs message). Edge cases: same long URL shortened twice, case sensitivity of codes. This shows structured, systems-level test design.",
+    "whyAsked": "A classic product-company design/scenario question testing breadth and systems thinking.",
+    "followUp": "How would you load-test the redirect path and check for short-code collisions at scale?",
+    "example": "Assert short->long redirect (301), unique codes, invalid URL rejected, latency under load, expired code -> 404."
   }
 ]
