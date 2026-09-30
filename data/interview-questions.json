@@ -1252,5 +1252,38 @@
     "whyAsked": "A senior design question; mapping principles to real classes shows you apply them.",
     "followUp": "Which SOLID principle does a God Utils class violate, and how would you split it?",
     "example": "public LoginPage(WebDriver driver) // depends on the interface, so any browser implementation works"
+  },
+  {
+    "id": "iv-bdd-1",
+    "category": "framework",
+    "difficulty": "intermediate",
+    "question": "What is BDD, and how is it different from just writing tests in Given/When/Then?",
+    "short": "BDD is a collaboration practice where BAs, developers, and testers agree on concrete behaviour examples up front, in plain language. Cucumber automates those examples; the value is the shared understanding, not the syntax.",
+    "detailed": "Behaviour-Driven Development describes features as examples of behaviour written in business-readable language and agreed before development (the 'three amigos' conversation). Those examples become living documentation and automated tests. Writing tests in Given/When/Then without that collaboration misses the point — you get the overhead of feature files and step definitions without the benefit of stakeholders reading and shaping them. Cucumber is the tool; BDD is the practice.",
+    "whyAsked": "Distinguishes people who understand BDD's purpose from those who only know Gherkin syntax.",
+    "followUp": "When would plain TestNG/JUnit be a better choice than Cucumber?",
+    "example": "Three amigos agree examples -> Gherkin feature file -> Cucumber automates it -> living documentation + tests."
+  },
+  {
+    "id": "iv-bdd-2",
+    "category": "framework",
+    "difficulty": "intermediate",
+    "question": "How does a Cucumber project fit together — feature files, step definitions, glue, and runner?",
+    "short": "Gherkin feature files describe scenarios; step definitions are Java methods (matched by annotations) that implement each step and delegate to page objects; the glue links them; a runner configures features, glue path, tags, and reporting.",
+    "detailed": "Feature files (.feature) hold Given/When/Then scenarios. Each step maps to a step-definition method annotated like @Given(\"...\") / @When(\"...{string}...\"). Step definitions should be thin, calling page objects rather than containing locators. The 'glue' is the package where Cucumber finds step definitions. A runner (@CucumberOptions) points at the features and glue, sets plugins for reports, and can filter by tags. Hooks (@Before/@After) manage setup/teardown like starting and quitting the driver.",
+    "whyAsked": "Checks hands-on structure knowledge, especially the thin-steps-plus-page-objects layering.",
+    "followUp": "Why should step definitions delegate to page objects instead of using findElement directly?",
+    "example": "@When(\"they log in as {string} with password {string}\") public void login(String u, String p){ new LoginPage(driver).loginAs(u,p); }"
+  },
+  {
+    "id": "iv-bdd-3",
+    "category": "framework",
+    "difficulty": "beginner",
+    "question": "What is a Scenario Outline in Cucumber, and how do tags help?",
+    "short": "A Scenario Outline runs the same scenario for each row of an Examples table (data-driven), using <placeholders>. Tags label scenarios (@smoke, @regression) so you can run subsets from the command line.",
+    "detailed": "Instead of copying a scenario for each input, a Scenario Outline parameterizes steps with <placeholders> and supplies an Examples table; Cucumber runs it once per row — the BDD equivalent of a DataProvider. Tags (e.g. @smoke above a scenario) let you include or exclude groups at run time, for example mvn test -Dcucumber.filter.tags=\"@smoke\". Background defines steps shared by every scenario in a feature so you don't repeat them.",
+    "whyAsked": "Common practical Cucumber question about data-driven scenarios and selective execution.",
+    "followUp": "How is a Scenario Outline similar to a TestNG DataProvider?",
+    "example": "Examples table with email/password/result rows -> the login scenario runs once per row."
   }
 ]

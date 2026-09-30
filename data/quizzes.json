@@ -493,5 +493,47 @@
     ],
     "answer": 1,
     "explanation": "A single shared driver means parallel tests fight over the same browser session. Use one driver per thread via ThreadLocal; Singletons suit things like config."
+  },
+  {
+    "id": "bdd-1",
+    "category": "framework",
+    "difficulty": "beginner",
+    "question": "In Gherkin, what is the purpose of the 'Given' step?",
+    "options": [
+      "The action being tested",
+      "The starting context or preconditions",
+      "The expected outcome",
+      "A comment"
+    ],
+    "answer": 1,
+    "explanation": "Given sets up the initial context/preconditions, When performs the action under test, and Then asserts the expected outcome."
+  },
+  {
+    "id": "bdd-2",
+    "category": "framework",
+    "difficulty": "intermediate",
+    "question": "What is the biggest value of BDD?",
+    "options": [
+      "It makes tests run faster",
+      "Shared understanding — stakeholders agree on behaviour examples in plain language before coding",
+      "It replaces the need for page objects",
+      "It removes the need for assertions"
+    ],
+    "answer": 1,
+    "explanation": "BDD is a collaboration practice. The value is agreeing concrete examples up front with BAs/POs; Cucumber then automates them. Without that collaboration it's just extra layers."
+  },
+  {
+    "id": "bdd-3",
+    "category": "framework",
+    "difficulty": "intermediate",
+    "question": "Where should locator and Selenium logic live in a Cucumber project?",
+    "options": [
+      "In the feature files",
+      "In the step definitions",
+      "In page objects, called by thin step definitions",
+      "In the runner class"
+    ],
+    "answer": 2,
+    "explanation": "Keep step definitions thin — they should delegate to page objects. Putting locators and waits directly in step definitions is the most common Cucumber anti-pattern."
   }
 ]

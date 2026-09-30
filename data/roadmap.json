@@ -39,7 +39,8 @@
         { "title": "Listeners & Retry", "url": "/testng/listeners-and-retry/" },
         { "title": "Page Object Model", "url": "/framework/page-object-model/" },
         { "title": "ThreadLocal WebDriver", "url": "/framework/threadlocal-webdriver/" },
-        { "title": "Framework Architecture", "url": "/framework/framework-architecture/" }
+        { "title": "Framework Architecture", "url": "/framework/framework-architecture/" },
+        { "title": "BDD & Cucumber", "url": "/framework/bdd-cucumber/" }
       ]
     },
     {
