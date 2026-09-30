@@ -37,7 +37,9 @@ const KNOWN_PAGES = new Set([
   "/roadmap/",
   "/interview/practice/",
   "/quiz/",
-  "/bookmarks/"
+  "/bookmarks/",
+  "/interview/mock/",
+  "/resume/"
 ]);
 
 async function walk(dir) {

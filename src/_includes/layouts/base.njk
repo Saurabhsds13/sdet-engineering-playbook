@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% if title %}{{ title }} · {% endif %}SDET Engineering Playbook</title>
   <meta name="description" content="{{ description or 'A practical SDET engineering playbook covering Java, Selenium 4, test automation frameworks, API testing, SQL, CI/CD, Playwright, AI-powered testing, GenAI, and agentic QA.' }}" />
+  {%- set metaTitle = (title ~ " · " ~ site.name) if (title and title != site.name) else site.name -%}
+  {%- set metaDesc = description or "A practical SDET engineering playbook covering Java, Selenium 4, test automation frameworks, API testing, SQL, CI/CD, Playwright, AI-powered testing, GenAI, and agentic QA." -%}
+  <link rel="canonical" href="{{ site.origin }}{{ page.url | url }}" />
+  <meta property="og:type" content="{% if category %}article{% else %}website{% endif %}" />
+  <meta property="og:site_name" content="{{ site.name }}" />
+  <meta property="og:title" content="{{ metaTitle }}" />
+  <meta property="og:description" content="{{ metaDesc }}" />
+  <meta property="og:url" content="{{ site.origin }}{{ page.url | url }}" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="{{ metaTitle }}" />
+  <meta name="twitter:description" content="{{ metaDesc }}" />
   <link rel="icon" href="{{ '/favicon.svg' | url }}" type="image/svg+xml" />
   <link rel="preload" href="{{ '/fonts/inter-latin-wght-normal.woff2' | url }}" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="{{ '/css/main.css' | url }}" />

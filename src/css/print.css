@@ -22,4 +22,16 @@
   .prose h2 { border-bottom: 1px solid #ccc; }
 
   .page-break { page-break-before: always; }
+
+  /* Résumé: print as a clean one-pager-style document. */
+  .resume__actions { display: none !important; }
+  .resume { max-width: none; }
+  .resume__header { border-bottom: 1px solid #999; }
+  .resume__role, .resume__project-name, .resume__metric-value { color: #000 !important; }
+  .resume__metric { border: 1px solid #bbb; padding: 0.4rem; }
+  .resume__metric-value { font-size: 1.2rem; }
+  .resume__section { margin-top: 0.9rem; page-break-inside: avoid; }
+  .resume__list li::before { background: #000; }
+  .resume .tag { border-color: #999; color: #000; }
+  .resume__contact a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
 }

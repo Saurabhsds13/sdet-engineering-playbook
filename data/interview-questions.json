@@ -977,5 +977,115 @@
     "whyAsked": "Manual + codeless-tool mentions can raise doubt about coding depth; this separates and reassures.",
     "followUp": "Can you write a short Java method to (reverse a string / count duplicates) right now?",
     "example": "SRIMS = Java/Selenium/TestNG/Rest Assured framework; DPPM Scriptless = client tool adaptability."
+  },
+  {
+    "id": "iv-svc-test-cart-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "How would you test a shopping cart?",
+    "short": "Cover add/remove/update quantity, price and total calculation (tax, discounts, coupons), persistence across sessions and devices, stock limits, and edge cases like zero/negative quantity and price changes after adding.",
+    "detailed": "Organize by area. Functional: add item, remove item, update quantity, empty cart, cart badge count. Calculation: line totals, subtotal, tax, shipping, discount and coupon rules (valid, expired, stacked), currency rounding. State: cart persists after refresh, logout/login, and across devices for logged-in users; guest cart merges on login. Inventory: can't exceed stock, out-of-stock item behaviour, price changed after the item was added. Negative/boundary: zero, negative, or huge quantities, non-numeric input. Non-functional: cart API response time, concurrent updates. Validate totals at API/DB level, not only in the UI.",
+    "whyAsked": "A very common service-interview scenario; checks structured coverage and business-rule thinking.",
+    "followUp": "Which of these would you check at the API level rather than through the UI?",
+    "example": "Coupon SAVE10 on a $50 cart -> $45 subtotal before tax; expired coupon -> clear error, total unchanged."
+  },
+  {
+    "id": "iv-svc-test-upload-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "How would you test file upload and download?",
+    "short": "Test allowed/blocked types, size limits, empty and corrupt files, special-character names, progress and cancel, security (malware, disguised extensions), and that downloads are complete and match the original. Automate upload via sendKeys on the file input.",
+    "detailed": "Upload: valid types succeed; blocked types are rejected with a clear message; files at, below, and above the size limit; empty (0 KB) and corrupt files; long names and special characters; duplicate names; multiple files; cancel mid-upload; network interruption. Security: disguised extensions (.exe renamed .pdf), server-side type checking, malware scanning. Download: file arrives complete, correct name and type, content matches the source (compare checksum or size), and permissions prevent unauthorized downloads. In Selenium, upload by sending the absolute path to the input[type=file] element; for downloads, configure the browser download directory and verify the file on disk.",
+    "whyAsked": "Tests both scenario coverage and Selenium know-how for a common awkward case.",
+    "followUp": "How do you automate a file upload in Selenium without interacting with the OS dialog?",
+    "example": "driver.findElement(By.cssSelector(\"input[type=file]\")).sendKeys(\"/abs/path/report.pdf\");"
+  },
+  {
+    "id": "iv-svc-test-payment-1",
+    "category": "interview",
+    "difficulty": "advanced",
+    "question": "How would you test a payment flow?",
+    "short": "Use the gateway's sandbox and test cards; cover success, decline, insufficient funds, expired card, timeouts, double-submit, refunds, and currency/amount accuracy; verify order and payment status in the DB, and check security (no card data logged, HTTPS).",
+    "detailed": "Never use real cards; use the provider's sandbox cards for each outcome. Functional: successful payment, declined card, insufficient funds, expired or invalid card, wrong CVV, 3-D Secure/OTP step. Resilience: gateway timeout, user closes the tab mid-payment, network drop, and double-clicking Pay (idempotency — must not charge twice). Accuracy: amount, tax, and currency match the cart; rounding. After-flow: order status and payment status agree across UI, API, and DB; confirmation email; refunds and partial refunds. Security: HTTPS only, card data never stored or logged in plain text, PCI rules respected. Reconcile payment status in the database rather than trusting only the UI.",
+    "whyAsked": "Payment is the highest-risk flow in most apps; interviewers look for negative, resilience, and security coverage.",
+    "followUp": "How do you prevent and test for a customer being charged twice?",
+    "example": "Double-submit test: click Pay twice quickly -> exactly one successful charge and one order in the DB."
+  },
+  {
+    "id": "iv-svc-test-search-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "How would you test a search feature?",
+    "short": "Cover exact, partial, and case-insensitive matches, no-result handling, filters and sorting, pagination, special characters and injection attempts, autocomplete, relevance, and response time for large datasets.",
+    "detailed": "Functional: exact match, partial match, case-insensitivity, multi-word queries, leading/trailing spaces, misspellings (if fuzzy search is supported). Results: correct items returned, sensible relevance order, filters and sorting combined correctly, pagination doesn't duplicate or skip results, result counts accurate. Empty states: no results message, empty query behaviour. Input handling: special characters, very long queries, SQL injection and script injection attempts are handled safely. UX: autocomplete suggestions, search history. Non-functional: response time on large data, behaviour under load. Validate result correctness against the database for a known data set.",
+    "whyAsked": "A standard scenario that reveals whether you think about correctness, relevance, and security, not only the happy path.",
+    "followUp": "How would you verify search results are correct and not just displayed?",
+    "example": "Query 'laptop' -> every result contains 'laptop'; count matches SELECT COUNT(*) ... WHERE name LIKE '%laptop%'."
+  },
+  {
+    "id": "iv-svc-test-registration-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "How would you test a user registration form?",
+    "short": "Validate each field (required, format, length, boundaries), duplicate accounts, password rules and confirmation, error messages, successful creation verified in the DB, confirmation email/OTP, and security basics like masking and injection handling.",
+    "detailed": "Per field: required vs optional, format (email, phone), min/max length and boundary values, allowed characters, trimming spaces. Cross-field: password and confirm-password match, password strength rules. Business rules: duplicate email/username rejected, age or terms acceptance enforced. Outcomes: success creates exactly one user record (verify in DB), confirmation email or OTP sent, clear inline error messages for each failure. Security: password masked, not logged, injection attempts handled. UX and accessibility: tab order, labels, keyboard use. Use equivalence partitioning and boundary value analysis to pick inputs efficiently.",
+    "whyAsked": "Checks test-design techniques (boundary values, equivalence classes) on a simple, familiar form.",
+    "followUp": "Explain boundary value analysis using the password length rule.",
+    "example": "Password 8–16 chars -> test 7 (reject), 8 (accept), 16 (accept), 17 (reject)."
+  },
+  {
+    "id": "iv-prod-code-twosum-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "Coding: two-sum — find two numbers in an array that add up to a target.",
+    "short": "Iterate once with a HashMap of value -> index; for each number, check whether target - number is already in the map. O(n) time, O(n) space, instead of the O(n²) nested loop.",
+    "detailed": "The brute force checks every pair with two loops — O(n²). The expected answer uses a HashMap: walk the array; for each element compute the complement (target - current). If the complement is already in the map, you've found the pair; otherwise store the current value with its index. This is one pass, O(n) time and O(n) space. Clarify with the interviewer whether you return indices or values and whether duplicates are allowed.",
+    "whyAsked": "The classic product-company warm-up testing HashMap use and complexity reasoning.",
+    "followUp": "How would you solve it if the array is already sorted and you must use O(1) extra space?",
+    "example": "Map<Integer,Integer> seen=new HashMap<>(); for(int i=0;i<a.length;i++){ Integer j=seen.get(t-a[i]); if(j!=null) return new int[]{j,i}; seen.put(a[i],i); }"
+  },
+  {
+    "id": "iv-prod-code-reversewords-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Coding: reverse the order of words in a sentence.",
+    "short": "Trim, split on one or more spaces, then join the words in reverse order. Handle extra spaces and empty input.",
+    "detailed": "Split the trimmed sentence with the regex \\s+ so multiple spaces don't create empty tokens, then build the result from the last word to the first (or reverse the list and join with a single space). Edge cases: empty string, a single word, leading/trailing and repeated spaces. A variation asks to reverse the characters inside each word while keeping word order — iterate the words and reverse each one.",
+    "whyAsked": "A common light string problem in both service and product rounds.",
+    "followUp": "How would you reverse each word in place but keep the word order?",
+    "example": "String[] w=s.trim().split(\"\\\\s+\"); Collections.reverse(Arrays.asList(w)); return String.join(\" \", w);"
+  },
+  {
+    "id": "iv-prod-code-missing-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Coding: find the missing number in an array containing 1 to n with one number missing.",
+    "short": "Compute the expected sum n(n+1)/2 and subtract the actual sum; the difference is the missing number. O(n) time, O(1) space.",
+    "detailed": "If the array holds n-1 distinct numbers from 1 to n, the expected total is n*(n+1)/2. Sum the array and subtract from the expected total. Use long for large n to avoid integer overflow. An alternative is XOR-ing all numbers 1..n with all array elements; the result is the missing value and avoids overflow entirely. Sorting also works but is O(n log n).",
+    "whyAsked": "Tests whether you spot the math shortcut instead of sorting or nested loops.",
+    "followUp": "How would you avoid integer overflow, or handle two missing numbers?",
+    "example": "int n=a.length+1; long expected=(long)n*(n+1)/2; long sum=0; for(int x:a) sum+=x; return (int)(expected-sum);"
+  },
+  {
+    "id": "iv-prod-code-fizzbuzz-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Coding: FizzBuzz — print 1 to n, 'Fizz' for multiples of 3, 'Buzz' for 5, 'FizzBuzz' for both.",
+    "short": "Loop 1..n and check divisibility by 15 first (or by both 3 and 5), then 3, then 5, else print the number.",
+    "detailed": "The only real trap is ordering: check the combined case (divisible by both 3 and 5, i.e. by 15) before the single cases, otherwise multiples of 15 print only 'Fizz'. Keep it readable. Interviewers sometimes extend it — make the rules configurable (a map of divisor -> word) — to see whether you can generalize without a pile of if-statements.",
+    "whyAsked": "A quick filter for basic control flow and attention to ordering.",
+    "followUp": "How would you make the divisor/word rules configurable?",
+    "example": "for(int i=1;i<=n;i++){ System.out.println(i%15==0?\"FizzBuzz\":i%3==0?\"Fizz\":i%5==0?\"Buzz\":String.valueOf(i)); }"
+  },
+  {
+    "id": "iv-prod-code-dedupe-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "Coding: remove duplicates from a list while preserving order.",
+    "short": "Pass the list through a LinkedHashSet (keeps insertion order, drops duplicates), or use stream().distinct(). O(n) time.",
+    "detailed": "A LinkedHashSet stores unique elements in insertion order, so new ArrayList<>(new LinkedHashSet<>(list)) removes duplicates while keeping the first occurrence of each. list.stream().distinct().collect(toList()) does the same. A HashSet would also drop duplicates but loses order; a TreeSet sorts. For custom objects, duplicates are determined by equals/hashCode, so both must be implemented. If asked to do it in place on a sorted array, use a two-pointer write index.",
+    "whyAsked": "Checks collection choice (LinkedHashSet vs HashSet vs TreeSet) and awareness of equals/hashCode.",
+    "followUp": "How do you remove duplicates in place from a sorted array without extra space?",
+    "example": "List<String> unique = new ArrayList<>(new LinkedHashSet<>(input));"
   }
 ]

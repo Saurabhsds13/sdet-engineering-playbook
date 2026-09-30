@@ -210,3 +210,43 @@
 }
 .phase h3 { font-size: 1.15rem; margin-bottom: var(--space-2); }
 .phase__links { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+
+/* ---- Mock interview ------------------------------------------------------ */
+.mock-track {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  flex: 1 1 16rem;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.mock-track:hover { border-color: var(--border-strong); }
+.mock-track:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.mock-track input { margin-top: 0.3rem; accent-color: var(--accent); }
+.mock-track small { color: var(--text-muted); }
+.mock-hint { font-size: 0.88rem; color: var(--text-muted); margin-bottom: var(--space-3); }
+.mock-last { font-size: 0.88rem; color: var(--text-muted); }
+.mock-rate { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.mock-sub {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+  margin: var(--space-5) 0 var(--space-2);
+}
+.mock-stages li {
+  display: grid;
+  grid-template-columns: 10rem 1fr 3rem;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  font-size: 0.92rem;
+}
+.mock-stages strong { text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) {
+  .mock-stages li { grid-template-columns: 1fr 3rem; }
+  .mock-stages li .meter { grid-column: 1 / -1; grid-row: 2; }
+}

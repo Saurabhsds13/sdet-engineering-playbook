@@ -41,6 +41,10 @@ ready(async () => {
     const { initInterview } = await import("./interview.js");
     initInterview();
   }
+  if (document.querySelector("[data-mock-root]")) {
+    const { initMock } = await import("./mock.js");
+    initMock();
+  }
   if (
     document.querySelector("[data-continue-card]") ||
     document.querySelector("[data-recent-list]")

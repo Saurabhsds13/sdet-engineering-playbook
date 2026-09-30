@@ -106,6 +106,7 @@
         { "title": "Presenting Your Experience", "url": "/career/presenting-your-experience/" },
         { "title": "Agile for SDETs", "url": "/career/agile-for-sdet/" },
         { "title": "Interview Practice", "url": "/interview/practice/" },
+        { "title": "Mock Interview", "url": "/interview/mock/" },
         { "title": "Quizzes", "url": "/quiz/" }
       ]
     }

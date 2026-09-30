@@ -110,6 +110,12 @@ export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("categories", CATEGORIES);
   eleventyConfig.addGlobalData("categoryGroups", CATEGORY_GROUPS);
   eleventyConfig.addGlobalData("buildYear", new Date().getFullYear());
+  // Absolute origin for share-preview (Open Graph) URLs. The path prefix is
+  // added by the `url` filter, so this is only the scheme + host.
+  eleventyConfig.addGlobalData("site", {
+    name: "SDET Engineering Playbook",
+    origin: process.env.SITE_ORIGIN || "https://saurabhsds13.github.io"
+  });
 
   // ---- Collections ---------------------------------------------------------
   // Every published article, sorted by category order then in-category order.
