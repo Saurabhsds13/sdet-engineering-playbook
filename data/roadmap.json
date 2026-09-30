@@ -5,10 +5,18 @@
       "title": "Java Foundations",
       "summary": "Solid programming underpins everything. Master OOP, collections, streams, and exception handling before touching frameworks.",
       "links": [
+        { "title": "Java Fundamentals", "url": "/java/java-fundamentals/" },
+        { "title": "Strings", "url": "/java/strings/" },
         { "title": "OOP for SDET", "url": "/java/oop-for-sdet/" },
         { "title": "Collections", "url": "/java/collections/" },
+        { "title": "Generics", "url": "/java/generics/" },
+        { "title": "Lambdas & Functional Interfaces", "url": "/java/lambdas-functional-interfaces/" },
         { "title": "Streams", "url": "/java/streams/" },
-        { "title": "Exception Handling", "url": "/java/exception-handling/" }
+        { "title": "Exception Handling", "url": "/java/exception-handling/" },
+        { "title": "JVM Memory & GC", "url": "/java/jvm-memory/" },
+        { "title": "Multithreading & Concurrency", "url": "/java/multithreading/" },
+        { "title": "ThreadLocal", "url": "/java/threadlocal/" },
+        { "title": "Design Patterns & SOLID", "url": "/java/design-patterns/" }
       ]
     },
     {

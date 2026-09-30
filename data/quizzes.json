@@ -387,5 +387,111 @@
     ],
     "answer": 1,
     "explanation": "Smoke = breadth on a fresh build (is it worth testing?). Sanity = focused depth on specific fixes or changes, often after deployment."
+  },
+  {
+    "id": "java-pbv-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "A method receives a List and does `list = new ArrayList<>(); list.add(\"x\");`. What does the caller's list contain afterwards?",
+    "options": [
+      "Only \"x\"",
+      "Its original contents, unchanged",
+      "Its original contents plus \"x\"",
+      "It becomes null"
+    ],
+    "answer": 1,
+    "explanation": "Java is pass-by-value: the method got a copy of the reference. Reassigning that copy points it at a new list, so adding to it doesn't touch the caller's list."
+  },
+  {
+    "id": "java-string-immutable-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "What does `String s = \"test\"; s.toUpperCase(); System.out.println(s);` print?",
+    "options": ["TEST", "test", "Test", "It doesn't compile"],
+    "answer": 1,
+    "explanation": "Strings are immutable. toUpperCase() returns a new String that is discarded here; s still refers to \"test\". You'd need s = s.toUpperCase()."
+  },
+  {
+    "id": "java-integer-cache-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "`Integer a = 128, b = 128;` What is `a == b`?",
+    "options": ["true", "false", "Compile error", "NullPointerException"],
+    "answer": 1,
+    "explanation": "Java caches Integer values only from -128 to 127. 128 is boxed into two different objects, so == (reference comparison) is false. Use a.equals(b)."
+  },
+  {
+    "id": "java-generics-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "Why can't you write `new T()` inside a generic class?",
+    "options": [
+      "T is always abstract",
+      "Type erasure: T's actual type isn't known at runtime",
+      "Generics only work with interfaces",
+      "Constructors can't be generic"
+    ],
+    "answer": 1,
+    "explanation": "Generic type information is erased after compilation, so the runtime doesn't know what T is. Pass a Class<T> or a Supplier<T> to create instances."
+  },
+  {
+    "id": "java-functional-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "Which built-in functional interface fits `() -> new ChromeDriver()`?",
+    "options": ["Predicate<WebDriver>", "Consumer<WebDriver>", "Supplier<WebDriver>", "Function<WebDriver, WebDriver>"],
+    "answer": 2,
+    "explanation": "A Supplier<T> takes no arguments and returns a T. It's ideal for a driver factory map like Map<String, Supplier<WebDriver>>."
+  },
+  {
+    "id": "java-memory-1",
+    "category": "java",
+    "difficulty": "advanced",
+    "question": "Where does the object created by `new ChromeDriver()` live?",
+    "options": ["On the stack", "On the heap", "In the string pool", "In Metaspace"],
+    "answer": 1,
+    "explanation": "All objects live on the heap. The local variable holding the reference lives on the thread's stack; the object becomes eligible for GC when no reachable reference remains."
+  },
+  {
+    "id": "java-thread-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "What happens if you call `thread.run()` instead of `thread.start()`?",
+    "options": [
+      "A new thread starts, same as start()",
+      "The task runs on the current thread — no new thread is created",
+      "It throws IllegalThreadStateException",
+      "The thread starts twice"
+    ],
+    "answer": 1,
+    "explanation": "start() creates a new thread which then calls run(). Calling run() directly is an ordinary method call on the current thread, so there's no concurrency."
+  },
+  {
+    "id": "java-volatile-1",
+    "category": "java",
+    "difficulty": "advanced",
+    "question": "Ten threads each run `count++` on a `volatile int count`. Is the final total guaranteed to be correct?",
+    "options": [
+      "Yes, volatile makes it thread-safe",
+      "No — volatile guarantees visibility, not atomicity; use AtomicInteger or synchronized",
+      "Yes, but only on multi-core machines",
+      "No, volatile variables can't be incremented"
+    ],
+    "answer": 1,
+    "explanation": "count++ is read-modify-write. volatile makes writes visible to other threads but doesn't stop two threads interleaving those steps, so updates are lost."
+  },
+  {
+    "id": "java-singleton-1",
+    "category": "java",
+    "difficulty": "advanced",
+    "question": "Why is making WebDriver a Singleton a bad idea in a test framework?",
+    "options": [
+      "Singletons are slower",
+      "All tests would share one browser, breaking parallel execution",
+      "WebDriver can't be stored in a static field",
+      "It prevents using TestNG"
+    ],
+    "answer": 1,
+    "explanation": "A single shared driver means parallel tests fight over the same browser session. Use one driver per thread via ThreadLocal; Singletons suit things like config."
   }
 ]

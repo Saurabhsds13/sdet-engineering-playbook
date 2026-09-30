@@ -1087,5 +1087,170 @@
     "whyAsked": "Checks collection choice (LinkedHashSet vs HashSet vs TreeSet) and awareness of equals/hashCode.",
     "followUp": "How do you remove duplicates in place from a sorted array without extra space?",
     "example": "List<String> unique = new ArrayList<>(new LinkedHashSet<>(input));"
+  },
+  {
+    "id": "iv-java-jdk-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "What is the difference between JDK, JRE, and JVM?",
+    "short": "JVM runs bytecode; JRE = JVM + standard libraries to run Java; JDK = JRE + compiler and tools to build Java.",
+    "detailed": "The JVM executes compiled bytecode and is what makes Java platform-independent — the same .class file runs on any OS with a JVM. The JRE packages the JVM with the core libraries needed to run applications. The JDK adds development tools: the javac compiler, debugger, and utilities. You write .java files, javac compiles them to .class bytecode, and the JVM runs that bytecode. To build and run a test framework you need the JDK.",
+    "whyAsked": "A basic warm-up that checks you know how Java code actually gets executed.",
+    "followUp": "Why is Java called platform-independent while the JVM itself is platform-specific?",
+    "example": "LoginTest.java --javac--> LoginTest.class --JVM--> runs on Windows, Linux, or macOS."
+  },
+  {
+    "id": "iv-java-passbyvalue-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "Is Java pass-by-value or pass-by-reference?",
+    "short": "Always pass-by-value. For objects, the value copied is the reference — so a method can change the object's contents, but reassigning the parameter doesn't affect the caller.",
+    "detailed": "Java copies the argument into the parameter. For primitives, that's the number itself. For objects, it's a copy of the reference, so both the caller and the method point at the same object: calling a setter inside the method is visible to the caller. But assigning a brand-new object to the parameter only changes the method's local copy of the reference; the caller's variable still points to the original. That's why Java is pass-by-value, not pass-by-reference.",
+    "whyAsked": "One of the most-asked Java questions; many experienced people answer it wrong.",
+    "followUp": "What happens if a method does `list = new ArrayList<>()` on a list it was passed?",
+    "example": "void rename(User u){ u.setName(\"Ada\"); } // visible to caller;  void replace(User u){ u = new User(); } // not visible"
+  },
+  {
+    "id": "iv-java-static-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "What's the difference between static and instance members, and where do you use static in a framework?",
+    "short": "Instance members belong to each object; static members belong to the class and are shared. Use static for utilities, constants, and registries like a config reader or ThreadLocal driver holder — not for per-test mutable state.",
+    "detailed": "Each object has its own copy of instance fields, while a static field has one copy shared by every instance and accessible without an object. Static methods can't use instance fields directly because there's no `this`. In frameworks, static fits constants (static final TIMEOUT), stateless utilities, and class-level registries such as a static ThreadLocal<WebDriver>. Static mutable fields for per-test data (like a static current user or static driver) break parallel execution because all threads share them.",
+    "whyAsked": "Checks fundamentals and whether you understand the parallel-execution risk of static state.",
+    "followUp": "Why is `private static WebDriver driver;` a problem when tests run in parallel?",
+    "example": "public static final int TIMEOUT = 10;  private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<>();"
+  },
+  {
+    "id": "iv-java-string-immutable-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "Why are Strings immutable, and what is the string pool?",
+    "short": "Immutability enables the string pool, security, thread safety, and cached hash codes. The pool stores each literal once, so identical literals share one object; `new String()` creates a separate object.",
+    "detailed": "Because a String can't change after creation, the JVM can keep one copy of each literal in the string pool and let every reference share it. Immutability also protects security-sensitive values (URLs, file paths, class names) from being altered after validation, makes Strings safe to share across threads, and lets the hash code be cached for fast HashMap lookups. `String a = \"x\"; String b = \"x\";` point to the same pooled object, while `new String(\"x\")` creates a new heap object — which is why == can mislead and equals() must be used for content.",
+    "whyAsked": "The most common Java String question; tests understanding beyond using String methods.",
+    "followUp": "How many objects does `new String(\"abc\")` create?",
+    "example": "\"abc\" == \"abc\" -> true;  new String(\"abc\") == \"abc\" -> false;  .intern() returns the pooled copy."
+  },
+  {
+    "id": "iv-java-stringbuilder-1",
+    "category": "java",
+    "difficulty": "beginner",
+    "question": "String vs StringBuilder vs StringBuffer?",
+    "short": "String is immutable; StringBuilder is mutable and fast but not thread-safe; StringBuffer is mutable and synchronized (thread-safe) but slower. Use StringBuilder for building text in one thread.",
+    "detailed": "Every change to a String creates a new object, so concatenating in a loop is wasteful. StringBuilder modifies one buffer in place and is the right choice for building log messages, reports, or payloads. StringBuffer does the same but synchronizes every method, which costs performance and is rarely needed — it's largely legacy. Since StringBuilder isn't thread-safe, don't share one instance across threads.",
+    "whyAsked": "A standard comparison question with a clear performance and thread-safety angle.",
+    "followUp": "Why is `s += x` inside a loop slow?",
+    "example": "StringBuilder sb = new StringBuilder(); for (String r : results) sb.append(r).append('\\n');"
+  },
+  {
+    "id": "iv-java-autobox-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "What is autoboxing, and why can `Integer a = 128, b = 128; a == b` be false?",
+    "short": "Autoboxing converts primitives to wrappers automatically (int -> Integer). Java caches Integer values from -128 to 127, so == compares cached references only in that range; beyond it, == compares different objects. Use equals().",
+    "detailed": "Collections store objects, so Java converts int to Integer (boxing) and back (unboxing) automatically. Integer.valueOf, which autoboxing uses, returns cached instances for -128 to 127, so two boxed 127s are the same object and == is true, while two boxed 128s are distinct objects and == is false. Always compare wrapper values with equals(). Another trap: unboxing a null Integer throws NullPointerException, common when reading a missing value from a Map<String, Integer>.",
+    "whyAsked": "A tricky question that checks precise understanding of wrappers and ==.",
+    "followUp": "What happens when you unbox a null Integer?",
+    "example": "Integer a=127,b=127; a==b // true.  Integer c=128,d=128; c==d // false; c.equals(d) // true"
+  },
+  {
+    "id": "iv-java-generics-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "What are generics, and what is type erasure?",
+    "short": "Generics give compile-time type safety and reusable code without casts (List<String>). Type erasure means generic types are removed after compilation, so at runtime List<String> and List<Integer> are both just List.",
+    "detailed": "Generics let classes and methods work with any type while the compiler checks correctness, e.g. a generic readJson(path, Class<T>) that returns any POJO without casts. Type erasure is how Java implements this: type parameters exist only at compile time and are replaced with Object or their bounds in bytecode. Consequences: you can't write new T(), create a generic array, or check instanceof List<String> — which is why utilities often take a Class<T> argument. Wildcards add flexibility: ? extends T for reading (producer), ? super T for writing (consumer) — PECS.",
+    "whyAsked": "Separates candidates who only use List<String> from those who can write reusable, type-safe utilities.",
+    "followUp": "Why is List<Integer> not a subtype of List<Number>?",
+    "example": "public static <T> T readJson(String path, Class<T> type) { ... }  User u = readJson(\"user.json\", User.class);"
+  },
+  {
+    "id": "iv-java-java8-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "What are the main features introduced in Java 8, and where do you use them in automation?",
+    "short": "Lambdas, functional interfaces, method references, Streams, Optional, default/static interface methods, and the java.time API. In Selenium, wait.until(d -> ...) is a lambda and ExpectedCondition is a functional interface.",
+    "detailed": "Java 8 brought functional programming to Java. Lambdas implement single-method interfaces concisely; built-in functional interfaces (Predicate, Function, Consumer, Supplier) cover common shapes; method references (WebElement::getText) shorten lambdas; Streams process collections declaratively; Optional models absent values; default methods let interfaces evolve; java.time replaces Date/Calendar with immutable classes like LocalDate and Duration. In automation: custom waits as lambdas, streams to extract and filter element text, a Map<String, Supplier<WebDriver>> driver factory, Duration.ofSeconds for waits.",
+    "whyAsked": "A standard question; connecting features to real Selenium code makes the answer stand out.",
+    "followUp": "What is a functional interface, and name four built-in ones?",
+    "example": "List<String> names = rows.stream().map(WebElement::getText).filter(t -> !t.isBlank()).toList();"
+  },
+  {
+    "id": "iv-java-optional-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "What is Optional and how should (and shouldn't) you use it?",
+    "short": "Optional<T> makes a possibly-missing return value explicit. Use map, orElse, orElseThrow, and ifPresent; avoid calling get() without checking, and don't use Optional for fields or parameters.",
+    "detailed": "Instead of returning null and hoping callers check, a method returns Optional<T> so the caller must handle the empty case. Good usage chains operations: optional.map(WebElement::getText).orElse(\"N/A\"), or orElseThrow(() -> new AssertionError(\"banner missing\")) to fail a test clearly. Anti-patterns: optional.get() without isPresent() (same NullPointerException risk), Optional fields or parameters, and wrapping collections (return an empty list instead).",
+    "whyAsked": "Checks practical, idiomatic modern Java rather than just knowing the class exists.",
+    "followUp": "What's the difference between orElse and orElseGet?",
+    "example": "driver.findElements(By.id(\"promo\")).stream().findFirst().ifPresent(WebElement::click);"
+  },
+  {
+    "id": "iv-java-stack-heap-1",
+    "category": "java",
+    "difficulty": "advanced",
+    "question": "Explain stack vs heap memory and how garbage collection works.",
+    "short": "The stack holds per-thread method frames, local primitives, and references; the heap holds all objects and is shared. The GC frees heap objects that are no longer reachable, using young and old generations.",
+    "detailed": "Each thread has its own stack of method frames; when a method returns, its frame and local variables disappear, which is why locals are thread-safe. Objects live on the shared heap. An object becomes eligible for garbage collection once nothing reachable (stack variables, static fields, live threads) references it. The heap is generational: new objects go to the young generation, collected often by fast minor GCs; long-lived survivors move to the old generation, collected by slower major GCs. G1 is the default collector since Java 9. Deep recursion causes StackOverflowError; too many live objects cause OutOfMemoryError.",
+    "whyAsked": "Senior-level fundamentals that show you understand what's happening under the framework.",
+    "followUp": "Can a Java program leak memory if it has a garbage collector?",
+    "example": "WebDriver d = new ChromeDriver(); // reference on the stack, ChromeDriver object on the heap"
+  },
+  {
+    "id": "iv-java-memleak-1",
+    "category": "java",
+    "difficulty": "advanced",
+    "question": "How can a Java test suite leak memory, and how would you find it?",
+    "short": "Objects stay referenced after they're needed: static collections that only grow, ThreadLocals never removed, drivers never quit, listeners or caches holding test objects. Find it with a heap dump (-XX:+HeapDumpOnOutOfMemoryError) and a tool like Eclipse MAT or VisualVM.",
+    "detailed": "The GC only frees unreachable objects, so anything still referenced is kept forever. In automation the usual culprits are static lists or maps appended to by every test, ThreadLocal values not cleared on pooled TestNG threads, WebDriver instances not quit (which also leaves browser processes running), and listeners or caches that retain references to test data. Symptoms: CI runs slow down over hours, then die with OutOfMemoryError. Diagnose by enabling heap dumps on OOM and inspecting the largest retained objects; fix the reference, don't just raise -Xmx.",
+    "whyAsked": "Shows real experience debugging long-running parallel suites.",
+    "followUp": "Why isn't increasing -Xmx a real fix?",
+    "example": "@AfterMethod(alwaysRun = true) void tearDown(){ DriverManager.get().quit(); DriverManager.remove(); }"
+  },
+  {
+    "id": "iv-java-thread-1",
+    "category": "java",
+    "difficulty": "intermediate",
+    "question": "Runnable vs Callable, and start() vs run()?",
+    "short": "Runnable.run() returns nothing and can't throw checked exceptions; Callable.call() returns a value and can throw. start() creates a new thread that calls run(); calling run() directly just runs it on the current thread.",
+    "detailed": "Use Runnable for fire-and-forget tasks and Callable when you need a result, submitting it to an ExecutorService to get a Future. Thread.start() asks the JVM to create a new thread of execution, which then invokes run(); calling run() yourself is an ordinary method call with no concurrency. Implementing Runnable is preferred over extending Thread because it keeps your single inheritance free and separates the task from the thread. In practice, prefer an ExecutorService thread pool over creating raw threads.",
+    "whyAsked": "Classic multithreading fundamentals, including a well-known trick question.",
+    "followUp": "Why use an ExecutorService instead of creating new Thread objects?",
+    "example": "Future<Integer> f = pool.submit(() -> callAndReturnStatus(url)); Assert.assertEquals(f.get(), 200);"
+  },
+  {
+    "id": "iv-java-sync-1",
+    "category": "java",
+    "difficulty": "advanced",
+    "question": "synchronized vs volatile vs AtomicInteger — when do you use each?",
+    "short": "synchronized gives mutual exclusion and visibility for a block; volatile gives visibility only (not atomicity); AtomicInteger gives lock-free atomic updates for a single variable. count++ needs synchronized or Atomic, not volatile.",
+    "detailed": "A race condition happens when threads read-modify-write shared data, e.g. count++, which is really read, add, write. synchronized lets only one thread into the block at a time and makes changes visible to others. volatile only guarantees that writes are immediately visible to other threads — fine for a simple stop flag, but it doesn't make count++ atomic. AtomicInteger.incrementAndGet() performs the whole update atomically without locks, usually the simplest correct choice for counters. For shared maps, use ConcurrentHashMap rather than synchronizing a HashMap.",
+    "whyAsked": "Tests real concurrency understanding — essential for anyone running tests in parallel.",
+    "followUp": "What is a deadlock and how do you avoid one?",
+    "example": "private final AtomicInteger passed = new AtomicInteger(); passed.incrementAndGet(); // safe across TestNG threads"
+  },
+  {
+    "id": "iv-java-singleton-1",
+    "category": "java",
+    "difficulty": "advanced",
+    "question": "How do you implement a thread-safe Singleton, and should WebDriver be a Singleton?",
+    "short": "Use double-checked locking with a volatile field, a static holder class, or an enum. Config is a good Singleton; WebDriver should not be — a single shared driver breaks parallel execution, so use one driver per thread via ThreadLocal.",
+    "detailed": "A Singleton guarantees one instance with global access. Thread-safe options: an eagerly created static final instance; double-checked locking (check null, synchronize, check again) with a volatile field; the static holder idiom, where a nested class holds the instance and the JVM initializes it lazily and safely; or an enum with one constant, which also resists reflection and serialization. In frameworks, a ConfigReader is a sensible Singleton. Making WebDriver a Singleton means every test shares one browser, which is fine only for strictly serial runs and breaks parallelism — ThreadLocal gives one driver per thread instead.",
+    "whyAsked": "Combines design patterns, concurrency, and framework judgment in one question.",
+    "followUp": "Why does the field need to be volatile in double-checked locking?",
+    "example": "Config is a Singleton; DriverManager uses static ThreadLocal<WebDriver> — one driver per thread, not one per JVM."
+  },
+  {
+    "id": "iv-java-solid-1",
+    "category": "java",
+    "difficulty": "advanced",
+    "question": "Explain SOLID with examples from a test automation framework.",
+    "short": "Single responsibility (LoginPage only models login), Open/closed (add a browser to the factory without touching tests), Liskov (any WebDriver works with your pages), Interface segregation (small Reporter/ScreenshotTaker interfaces), Dependency inversion (pages depend on WebDriver, not ChromeDriver).",
+    "detailed": "S: each class has one reason to change — a page object models one page, the DriverFactory only creates drivers, a ConfigReader only reads config. O: extend behaviour without editing existing code — adding Edge support means adding a case or strategy in the factory, not editing tests. L: subtypes must work wherever the parent does — pages written against WebDriver work with ChromeDriver, FirefoxDriver, or RemoteWebDriver. I: prefer small focused interfaces over one God Utils interface. D: high-level code depends on abstractions — tests and pages receive a WebDriver or Reporter interface, and the concrete choice is injected.",
+    "whyAsked": "A senior design question; mapping principles to real classes shows you apply them.",
+    "followUp": "Which SOLID principle does a God Utils class violate, and how would you split it?",
+    "example": "public LoginPage(WebDriver driver) // depends on the interface, so any browser implementation works"
   }
 ]
