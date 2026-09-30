@@ -16,15 +16,18 @@ export const CATEGORIES = {
   "ai-testing": { label: "AI Testing", order: 9, group: "ai" },
   "ai-agents": { label: "AI Agents", order: 10, group: "ai" },
   "real-world": { label: "Real-World Scenarios", order: 11, group: "realworld" },
-  interview: { label: "Interview", order: 12, group: "interview" }
+  performance: { label: "Performance", order: 12, group: "engineering" },
+  career: { label: "Career & Interview Craft", order: 13, group: "career" },
+  interview: { label: "Interview", order: 14, group: "interview" }
 };
 
 export const CATEGORY_GROUPS = [
   { key: "foundations", label: "Foundations", categories: ["java", "selenium", "testng"] },
-  { key: "engineering", label: "Engineering", categories: ["framework", "api", "sql", "devops"] },
+  { key: "engineering", label: "Engineering", categories: ["framework", "api", "sql", "devops", "performance"] },
   { key: "modern", label: "Modern Automation", categories: ["playwright"] },
   { key: "ai", label: "AI Era", categories: ["ai-testing", "ai-agents"] },
   { key: "realworld", label: "Real World", categories: ["real-world"] },
+  { key: "career", label: "Career & Craft", categories: ["career"] },
   { key: "interview", label: "Interview", categories: ["interview"] }
 ];
 

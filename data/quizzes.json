@@ -261,5 +261,75 @@
     ],
     "answer": 1,
     "explanation": "Blind retries hide real bugs. Retry only known-transient exceptions (e.g. TimeoutException), keep the count low, never retry genuine assertion failures, and report retries so flakiness stays visible."
+  },
+  {
+    "id": "perf-jmeter-1",
+    "category": "performance",
+    "difficulty": "intermediate",
+    "question": "Why should you report the 95th/99th percentile instead of the average response time?",
+    "options": [
+      "Percentiles are easier to calculate",
+      "The average can look healthy while a slow tail of users experiences much worse latency",
+      "Averages are not supported by JMeter",
+      "Percentiles ignore errors"
+    ],
+    "answer": 1,
+    "explanation": "An average hides the tail: 5% of users could wait 10 seconds while the average looks fine. The 95th/99th percentile reveals the latency real users actually feel under load."
+  },
+  {
+    "id": "perf-jmeter-2",
+    "category": "performance",
+    "difficulty": "intermediate",
+    "question": "In JMeter, why do you extract a token from a login response and inject it into later requests?",
+    "options": [
+      "To make the report look nicer",
+      "Correlation — dynamic server values like tokens change each run, so without it post-login requests fail",
+      "To reduce the number of threads",
+      "It is only needed in GUI mode"
+    ],
+    "answer": 1,
+    "explanation": "This is correlation. Server-generated values (tokens, session ids) differ every run and user; capturing them with an extractor and passing them forward keeps authenticated requests from failing with 401."
+  },
+  {
+    "id": "perf-jmeter-3",
+    "category": "performance",
+    "difficulty": "beginner",
+    "question": "Why run a JMeter load test in non-GUI (command-line) mode?",
+    "options": [
+      "The GUI cannot run test plans",
+      "The GUI itself consumes resources and skews the results",
+      "Non-GUI mode adds more virtual users automatically",
+      "It is required to write assertions"
+    ],
+    "answer": 1,
+    "explanation": "The JMeter GUI is for designing and debugging. Running the actual load test in non-GUI mode (jmeter -n) avoids the GUI's resource overhead skewing measurements, and is how you run it in CI."
+  },
+  {
+    "id": "agile-1",
+    "category": "career",
+    "difficulty": "beginner",
+    "question": "In Agile, when does testing happen?",
+    "options": [
+      "Only in a dedicated phase after development finishes",
+      "Continuously throughout the sprint, starting from acceptance criteria",
+      "Only before the release",
+      "Only during the retrospective"
+    ],
+    "answer": 1,
+    "explanation": "Agile treats quality as a whole-team, continuous activity. SDETs engage from refinement/acceptance criteria and automate within the sprint, rather than testing as an end phase."
+  },
+  {
+    "id": "agile-2",
+    "category": "career",
+    "difficulty": "beginner",
+    "question": "What is the Definition of Done (DoD)?",
+    "options": [
+      "A list of bugs to fix later",
+      "The team's shared bar for 'complete' — e.g. code reviewed, automated tests passing, no critical defects, merged",
+      "The product backlog",
+      "The sprint length"
+    ],
+    "answer": 1,
+    "explanation": "The DoD is the agreed standard a story must meet to be considered done. SDETs help enforce it by making passing automated tests part of the DoD."
   }
 ]

@@ -647,5 +647,115 @@
     "whyAsked": "Tests collaboration, evidence-based reasoning, and how you handle disagreement.",
     "followUp": "How do you distinguish a genuinely flaky test from an intermittent product bug?",
     "example": "Attach a 30% repro with logs showing a race in the app's async update -> reframed as a product bug, fixed."
+  },
+  {
+    "id": "iv-perf-jmeter-1",
+    "category": "performance",
+    "difficulty": "intermediate",
+    "question": "How is a JMeter test plan structured, and what metrics do you report?",
+    "short": "Test Plan -> Thread Group (threads, ramp-up, loops) -> Samplers (HTTP requests) with config, timers, assertions, and listeners. Report percentiles (95th/99th), throughput, and error % — not just the average.",
+    "detailed": "A Thread Group defines the load: number of virtual users, ramp-up period, and loop count. Inside it, HTTP Request samplers make the calls, config elements set shared headers/host, timers add realistic think-time, assertions validate responses, and listeners aggregate results. You design in the GUI but run in non-GUI (CLI) mode so the tool itself doesn't skew results. For reporting, percentiles reveal tail latency real users feel — an average can look fine while 5% wait 10 seconds — alongside throughput (req/s) and error rate.",
+    "whyAsked": "Confirms real load-testing experience versus having only recorded a script.",
+    "followUp": "Why report the 95th percentile instead of the average, and why run in non-GUI mode?",
+    "example": "jmeter -n -t plan.jmx -l results.jtl -e -o report/  // non-GUI run + HTML dashboard"
+  },
+  {
+    "id": "iv-perf-jmeter-2",
+    "category": "performance",
+    "difficulty": "intermediate",
+    "question": "What is correlation in JMeter and why is it needed?",
+    "short": "Correlation extracts a dynamic value (like an auth token or session id) from one response and injects it into subsequent requests, so post-login calls don't fail.",
+    "detailed": "Real flows produce server-generated values — tokens, session ids, CSRF tokens — that change every run and every user. Without correlation, virtual users replay a stale token and every request after login returns 401. You capture the value with a post-processor (JSON Extractor or Regular Expression Extractor) into a variable and reference it in later samplers. This pairs with parameterization (CSV Data Set Config) so each virtual user also uses distinct input data rather than all hammering as the same account.",
+    "whyAsked": "Correlation is the part that separates a working load test from a broken one; hard to know without hands-on use.",
+    "followUp": "How does correlation differ from parameterization?",
+    "example": "JSON Extractor: token from login response -> ${token} used in Authorization header of later requests."
+  },
+  {
+    "id": "iv-agile-1",
+    "category": "career",
+    "difficulty": "beginner",
+    "question": "How does testing fit into an Agile/Scrum sprint?",
+    "short": "Quality is a whole-team responsibility, not an end phase: SDETs engage from refinement/acceptance criteria, automate within the same sprint as the feature, give fast feedback via CI, and make automated tests part of the Definition of Done.",
+    "detailed": "In Scrum, testing is continuous. At backlog refinement and sprint planning you check testability and define acceptance criteria that become your test cases. During the sprint you automate alongside development rather than a sprint later, keeping a fast smoke suite in CI for quick feedback and running full regression before release. In standups you surface blockers early, and in retros you raise quality issues like flakiness or slow pipelines. Automated tests being part of the Definition of Done is how you enforce quality as a team.",
+    "whyAsked": "Checks you can work inside a delivery team and understand shift-left, not just write scripts.",
+    "followUp": "What's the difference between acceptance criteria and the Definition of Done?",
+    "example": "Refine story -> automate in-sprint -> smoke in CI -> full regression before release; retro flags flaky tests."
+  },
+  {
+    "id": "iv-proj-framework-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "Walk me through the automation framework on your project.",
+    "short": "Describe it in layers: tests (intent + assertions), page/service objects, core (driver/HTTP setup, waits), and support (config, data, reporting) — built on Java + Selenium + TestNG with Rest Assured/HTTPClient for API verification, run in CI.",
+    "detailed": "Give a structured tour, not a tool list. Example: 'Java with Selenium and TestNG for UI, Rest Assured and HTTPClient for service verification. Tests hold only intent and assertions; page objects encapsulate locators and actions; a core layer handles driver setup, waits, and shared HTTP clients; a support layer covers config (so the same suite runs across environments), test data, and reporting. Regression runs in CI, and I maintained the suites across multiple products.' Then be ready to defend one design choice (why POM, why API-level checks, how you handle parallel runs).",
+    "whyAsked": "The single most common experience question; reveals whether you understand your own framework's architecture.",
+    "followUp": "Why did you choose that structure, and how do you keep it maintainable as tests grow?",
+    "example": "Layers: tests -> page/service objects -> core (driver, waits, HTTP) -> support (config, data, reporting)."
+  },
+  {
+    "id": "iv-proj-metrics-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "Tell me about a measurable improvement you drove in your automation.",
+    "short": "Use STAR with a number: e.g. cut full regression execution time by ~70% by automating manual cases and moving service verification to API-level checks, giving the team much faster release feedback.",
+    "detailed": "Lead with the result, then explain the mechanism so it sounds real. 'Full regression was the release bottleneck. I automated the manual regression cases and moved service verification from slow UI paths to API-level checks with Rest Assured/HTTPClient, and structured the suite in TestNG to run efficiently. That reduced total regression execution time by about 70%.' Be ready to explain how you measured it and how you decided what to automate versus keep manual.",
+    "whyAsked": "Quantified impact is what makes a candidate memorable; interviewers probe whether you can back the number with a mechanism.",
+    "followUp": "How did you measure the improvement, and how did you decide what to automate?",
+    "example": "70% faster regression via API-level service verification + automating manual cases + TestNG structuring."
+  },
+  {
+    "id": "iv-proj-stability-1",
+    "category": "interview",
+    "difficulty": "advanced",
+    "question": "How did you improve the reliability/stability of your automation reports?",
+    "short": "Investigate failures by cause, fix synchronization with proper waits, isolate test data so runs don't collide, and remove unstable checks — driving report reliability up (e.g. to ~98%) so a red run means a real problem.",
+    "detailed": "Noisy reports destroy trust in the suite. I clustered failures by cause, and the biggest ones were synchronization (fixed with explicit waits instead of sleeps) and test-data collisions (isolated/uniquified data). I also cleaned up genuinely unstable checks and made sure failures captured evidence. The result was report stability around 98%, so the team trusted results and acted on real failures instead of re-running. I avoided masking problems with blind retries.",
+    "whyAsked": "Reliability engineering is core to senior SDET work; the metric plus method shows real depth.",
+    "followUp": "What were the top causes of flakiness, and why not just add retries?",
+    "example": "Cluster failures -> fix waits + isolate data -> ~98% report reliability, no blind retries."
+  },
+  {
+    "id": "iv-proj-mentoring-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "Tell me about a time you mentored teammates or set up a new automation package.",
+    "short": "Set up the structure and patterns, paired with colleagues, and reviewed their code so the approach stayed consistent — so the practice scaled beyond just you.",
+    "detailed": "STAR it: colleagues were ramping onto a new automation package; I was asked to help build it and bring others up to speed. I established the framework structure and conventions, paired with teammates on their first tests, and reviewed pull requests to keep patterns consistent (proper waits, no assertions in page objects, isolated data). The outcome was the team delivering the package together with shared standards. Mentioning what you enforce in reviews shows you think about scalable quality, not just your own output.",
+    "whyAsked": "Signals leadership, collaboration, and that your good practices scale across a team.",
+    "followUp": "What standards do you enforce when reviewing someone's automation code?",
+    "example": "Set patterns + pair + code review -> consistent, team-wide automation package."
+  },
+  {
+    "id": "iv-proj-integration-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "How have you handled API/service verification and integration testing with multiple vendors?",
+    "short": "Validate API responses for each service (Rest Assured/HTTPClient), test dependent components during integration in higher environments, and run production sanity after deployment to confirm health.",
+    "detailed": "Describe the layers of verification: assert status, schema, and key fields on each service's API responses; during integration testing validate that dependent components behave correctly across vendor boundaries in higher environments; and after deployment run sanity checks in production to confirm the release is healthy. Emphasize catching integration issues before customers do, and reconciling behaviour across services. This maps directly to enterprise/telecom service testing.",
+    "whyAsked": "Integration and API verification are central to enterprise QA; shows you test systems, not just single endpoints.",
+    "followUp": "How do you validate a service beyond its status code, and how do you isolate which layer failed?",
+    "example": "Assert API responses -> integration-test dependent components across vendors -> production sanity post-deploy."
+  },
+  {
+    "id": "iv-proj-challenge-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "What was the most challenging problem you faced in automation, and how did you solve it?",
+    "short": "Pick a real technical problem (e.g. an intermittent integration/timing failure), show your diagnosis process with evidence, and end with the fix and what you learned.",
+    "detailed": "Choose a genuine challenge and tell it as a story: the symptom (intermittent failures in a multi-vendor integration or a hard-to-reproduce defect), how you investigated (gathered a failure rate, captured logs/responses, clustered by cause), the root cause you found (a synchronization race, a stale token, an environment difference), the fix, and the lasting change (a wait strategy, correlation, a more isolated environment). End with the lesson. Avoid picking something trivial or blaming others.",
+    "whyAsked": "Reveals problem-solving process, resilience, and depth — not just that you hit a wall.",
+    "followUp": "How did you confirm the root cause rather than just treating the symptom?",
+    "example": "Intermittent post-login failures -> traced to expiring token -> added correlation -> stable; learned to verify tokens first."
+  },
+  {
+    "id": "iv-proj-manual-auto-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "You've done both manual and automation testing — how do you decide what to automate?",
+    "short": "Automate stable, repetitive, high-value regression paths and API/service checks; keep exploratory, one-off, or rapidly-changing areas manual. Weigh maintenance cost against risk reduction.",
+    "detailed": "Automation earns its place on tests that run often, cover critical flows, are stable, and are deterministic — regression suites and API/service verification are prime candidates (and where I got the biggest speed wins). Keep exploratory testing, brand-new volatile features, and rarely-run checks manual. Always factor maintenance: a test that breaks every sprint can cost more than it saves. Push checks to faster API/service layers where possible for more coverage per minute than slow UI tests.",
+    "whyAsked": "Tests judgment and cost-awareness, and leverages your combined manual+automation background.",
+    "followUp": "Which checks did you move from UI to API level, and why?",
+    "example": "Automate regression + API service checks; keep exploratory and volatile new UI manual."
   }
 ]

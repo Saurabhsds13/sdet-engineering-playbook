@@ -43,7 +43,8 @@
         { "title": "Rest Assured", "url": "/api/rest-assured/" },
         { "title": "SQL Fundamentals", "url": "/sql/sql-fundamentals/" },
         { "title": "SQL Joins", "url": "/sql/joins/" },
-        { "title": "Database Validation", "url": "/sql/database-validation/" }
+        { "title": "Database Validation", "url": "/sql/database-validation/" },
+        { "title": "JMeter Fundamentals", "url": "/performance/jmeter-fundamentals/" }
       ]
     },
     {
@@ -100,6 +101,8 @@
       "title": "SDET Interview Preparation",
       "summary": "Consolidate everything into interview-ready answers that demonstrate engineering thinking.",
       "links": [
+        { "title": "Presenting Your Experience", "url": "/career/presenting-your-experience/" },
+        { "title": "Agile for SDETs", "url": "/career/agile-for-sdet/" },
         { "title": "Interview Practice", "url": "/interview/practice/" },
         { "title": "Quizzes", "url": "/quiz/" }
       ]
