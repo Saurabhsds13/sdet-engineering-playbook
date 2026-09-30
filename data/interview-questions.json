@@ -922,5 +922,60 @@
     "whyAsked": "A classic product-company design/scenario question testing breadth and systems thinking.",
     "followUp": "How would you load-test the redirect path and check for short-code collisions at scale?",
     "example": "Assert short->long redirect (301), unique codes, invalid URL rejected, latency under load, expired code -> 404."
+  },
+  {
+    "id": "iv-resume-metric-70-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "Your resume says you reduced regression execution time by 70% — how did you measure that?",
+    "short": "Compare full-suite execution time before and after: regression was largely manual/slow before; after automating cases and moving service verification to the API layer, the full run dropped ~70%. Own the number and the method.",
+    "detailed": "Have the before/after ready even if approximate. 'Before automation, full regression across the three products was largely manual and took a long cycle. After I automated the cases and moved service verification to API level with Rest Assured/HTTPClient, the full suite ran far faster — about 70% less total execution time, measured by comparing before and after.' Be ready to say what you automated first and why. The trap is hesitating or saying 'roughly, I think' — that undermines the whole claim.",
+    "whyAsked": "Interviewers test whether resume metrics are real and whether you can defend them with a method.",
+    "followUp": "What did you automate first, and how did you decide the order?",
+    "example": "Before: long manual regression cycle. After: automated + API-level checks -> ~70% faster full-suite run."
+  },
+  {
+    "id": "iv-resume-metric-98-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "You mention 98% report stability — what caused the failures, and what's the remaining 2%?",
+    "short": "The main causes were synchronization (fixed with explicit waits) and test-data collisions (fixed by isolating data per run). The remaining ~2% were environment/infra hiccups, which I flagged rather than masking with blind retries.",
+    "detailed": "Show you diagnosed by cause rather than guessing. 'I clustered failures: the biggest were synchronization — replaced sleeps with explicit waits — and test-data collisions, which I fixed by making data unique/isolated per run. That drove report reliability to about 98%. The last ~2% were environment or infrastructure issues outside the test code; I surfaced those transparently instead of hiding them behind retries, so a red run still meant something real.'",
+    "whyAsked": "Probes whether the stability metric reflects real reliability engineering or just added retries.",
+    "followUp": "Why not just add retries to reach 100%?",
+    "example": "Causes: waits + data isolation fixed most; residual 2% = infra, flagged not masked."
+  },
+  {
+    "id": "iv-resume-tenure-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "You've spent 5+ years at one company — why, and are you adaptable?",
+    "short": "Frame tenure as depth plus variety: two very different projects, three products, manual + automation + API, and mentoring — now seeking a new domain and bigger challenges.",
+    "detailed": "Turn a potential bias into a strength. 'I got real depth and range within one organization — an earlier web project and a multi-product telecom program, both manual and automation work, API and integration testing, plus mentoring teammates. I've grown steadily; now I'm looking to apply that breadth in a new domain and take on bigger challenges.' Avoid sounding defensive; emphasize growth and variety, not just loyalty.",
+    "whyAsked": "Single-company tenure triggers an adaptability/bias check; they want to see growth, not stagnation.",
+    "followUp": "What's the most different challenge you took on within that time?",
+    "example": "Two projects, three products, manual+auto+API, mentoring -> depth and range, now ready for a new domain."
+  },
+  {
+    "id": "iv-resume-domain-1",
+    "category": "interview",
+    "difficulty": "beginner",
+    "question": "Your experience is only in telecom — can you adapt to our domain?",
+    "short": "The domain was telecom, but the engineering transfers directly — API/service verification, regression architecture, integration testing. Domain knowledge ramps quickly; quality principles are the same everywhere.",
+    "detailed": "'The business domain was telecom, but what I actually did — building and maintaining regression frameworks, verifying APIs and services, testing integrations across vendors, managing defects — applies to any domain. I pick up domain specifics quickly by working from requirements and acceptance criteria; the automation and quality engineering principles don't change.' Optionally cite how fast you ramped on a new product within telecom.",
+    "whyAsked": "Checks whether you see yourself as a domain specialist or a transferable engineer.",
+    "followUp": "How do you get up to speed on an unfamiliar domain quickly?",
+    "example": "Telecom domain, transferable engineering: API verification, regression architecture, integration testing."
+  },
+  {
+    "id": "iv-resume-scriptless-1",
+    "category": "interview",
+    "difficulty": "intermediate",
+    "question": "You used a Scriptless tool and did manual testing too — how strong is your actual coding?",
+    "short": "Separate the projects: the telecom program was real Java with Selenium, TestNG, and Rest Assured (you built/maintained the framework); the Scriptless tool was an earlier client platform showing adaptability, not your core skill.",
+    "detailed": "'On the telecom program I wrote code — Java with Selenium, TestNG, and Rest Assured — and built and maintained the automation framework and service checks. The Scriptless tool was on an earlier project using the client's in-house platform; it showed I adapt to client tooling, but my core automation is code-based.' Lead with the real engineering and, if asked, be ready to write a small Java snippet to back it up.",
+    "whyAsked": "Manual + codeless-tool mentions can raise doubt about coding depth; this separates and reassures.",
+    "followUp": "Can you write a short Java method to (reverse a string / count duplicates) right now?",
+    "example": "SRIMS = Java/Selenium/TestNG/Rest Assured framework; DPPM Scriptless = client tool adaptability."
   }
 ]

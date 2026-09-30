@@ -101,6 +101,7 @@
       "title": "SDET Interview Preparation",
       "summary": "Consolidate everything into interview-ready answers that demonstrate engineering thinking.",
       "links": [
+        { "title": "Résumé Deep-Dive", "url": "/career/resume-deep-dive/" },
         { "title": "QA Process Fundamentals", "url": "/career/qa-process-fundamentals/" },
         { "title": "Presenting Your Experience", "url": "/career/presenting-your-experience/" },
         { "title": "Agile for SDETs", "url": "/career/agile-for-sdet/" },
